@@ -1,7 +1,6 @@
 <template>
   <div id="app">
 
-
     <div class="col">
     <nav>
       <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="height: 100%">
@@ -12,50 +11,11 @@
           <span class="fs-4">Sidebar</span>
         </a>
         <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="#" class="nav-link" aria-current="page">
-                <router-link to="/">Home</router-link>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link" aria-current="page">
-                <router-link to="/login">Login</router-link>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#speedometer2"></use>
-              </svg>
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#table"></use>
-              </svg>
-              Orders
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#grid"></use>
-              </svg>
-              Products
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#people-circle"></use>
-              </svg>
-              Customers
-            </a>
-          </li>
-        </ul>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-secondary btn-sm"><router-link to="/">Püügiandmed</router-link></button>
+          <button type="button" class="btn btn-secondary btn-sm"><router-link to="/login">Logi sisse</router-link></button>
+        </div>
+
         <hr>
         <div class="dropdown">
           <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
@@ -114,7 +74,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #b142b9;
+  color: white;
 }
 </style>
 
