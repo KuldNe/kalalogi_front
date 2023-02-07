@@ -1,9 +1,7 @@
 <template>
-  <div>
 
-  <div id="view">
+  <div id="view" class="col-4 bg-dark just rounded-3" style="margin-top: 30px; margin-left: 30px; padding: 30px">
 
-    <div class="col-4">
       <AlertDanger :message="message" />
       <form class="px-4 py-3">
         <div class="mb-3">
@@ -14,12 +12,10 @@
           <label class="form-label">Parool</label>
           <input v-model="password" type="password" class="form-control" placeholder="parool">
         </div>
-        <button v-on:click="login" type="submit" class="btn btn-primary">Logi sisse</button>
+        <button v-on:click="login" type="submit" class="btn btn-secondary">Logi sisse</button>
       </form>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">New around here? Sign up</a>
-    </div>
-  </div>
+      <a class="dropdown-item" href="#">Oled uus? Registreeru!</a>
 
   </div>
 </template>
@@ -86,11 +82,14 @@ export default {
 </script>
 <style>
 
+div {
+}
+
 #view {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
 }
 </style>
