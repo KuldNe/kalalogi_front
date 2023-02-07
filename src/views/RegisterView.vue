@@ -2,30 +2,35 @@
 
   <div id="view" class="col-4 bg-dark just rounded-4" style="margin-top: 100px; margin-left: 30px; padding: 30px">
 
-      <AlertDanger :message="message" />
-      <form class="px-4 py-3">
-        <div class="mb-3">
-          <label class="form-label">Kasutajanimi</label>
-          <input v-model="username" type="text" class="form-control" placeholder="kasutajanimi">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Parool</label>
-          <input v-model="password" type="password" class="form-control" placeholder="parool">
-        </div>
-        <button v-on:click="login" type="submit" class="btn btn-secondary">Logi sisse</button>
-      </form>
-
-<router-link to="/register">Oled uus? Registreeru!</router-link>
-<!--      <a class="btn btn-secondary btn-sm" href="/#/register" role="button">Oled uus? Registreeru!</a>-->
-
+    <AlertDanger :message="message"/>
+    <form class="px-4 py-3">
+      <div class="mb-3">
+        <label class="form-label">Kasutajanimi:</label>
+        <input v-model="username" type="text" class="form-control" placeholder="kasutajanimi">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">E-mail:</label>
+        <input v-model="email" type="text" class="form-control" placeholder="email">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Parool:</label>
+        <input v-model="password" type="text" class="form-control" placeholder="parool">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Kinnita parool:</label>
+        <input v-model="confirmpassword" type="password" class="form-control" placeholder="kinnita parool">
+      </div>
+      <button type="submit" class="btn btn-secondary">Loo kasutaja</button>
+    </form>
 
   </div>
 </template>
 
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+
 export default {
-  name: "LoginView",
+  name: "RegisterView",
   components: {AlertDanger},
 
   data: function () {
@@ -41,15 +46,16 @@ export default {
       },
 
       message: '',
-
       username: '',
-      password: ''
+      email: '',
+      password: '',
+      confirmpassword: ''
     }
   },
 
   methods: {
 
-    login: function () {
+    register: function () {
       this.message = ''
       if (this.username == '' || this.password =='') {
         this.message = 'täida kõik väljad'
@@ -60,7 +66,7 @@ export default {
     },
 
     sendLoginRequest: function () {
-      this.$http.get("/login", {
+      this.$http.get("/register", {
             params: {
               username: this.username,
               password: this.password
@@ -82,16 +88,7 @@ export default {
   }
 }
 </script>
-<style>
 
-div {
-}
+<style scoped>
 
-#view {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: white;
-}
 </style>
