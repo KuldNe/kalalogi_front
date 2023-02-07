@@ -1,0 +1,14 @@
+.input-filled {
+    background-color: #198754 !important;
+    color: white;
+}
+
+.input-danger {
+    background-color: red !important;
+    color: white;
+}
+
+.icon-hover:hover {
+    font-size: 1.1em;
+    color: red;
+}

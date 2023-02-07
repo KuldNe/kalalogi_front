@@ -1,9 +1,10 @@
 <template>
   <div>
-  <AlertDanger :message="message" />
-  <div id="login">
+
+  <div id="view">
 
     <div class="col-4">
+      <AlertDanger :message="message" />
       <form class="px-4 py-3">
         <div class="mb-3">
           <label class="form-label">Kasutajanimi</label>
@@ -85,7 +86,7 @@ export default {
 </script>
 <style>
 
-#app {
+#view {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

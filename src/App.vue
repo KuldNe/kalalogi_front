@@ -14,11 +14,13 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#home"></use>
-              </svg>
-              Home
+            <a href="#" class="nav-link" aria-current="page">
+                <router-link to="/">Home</router-link>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" aria-current="page">
+                <router-link to="/login">Login</router-link>
             </a>
           </li>
           <li>
@@ -74,7 +76,7 @@
       </div>
     </nav>
     </div>
-<div class="col">
+<div id="main">
     <router-view/>
 </div>
 
@@ -88,6 +90,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+#main {
+  margin-left: 280px;
 }
 
 nav {
@@ -109,8 +114,10 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #b142b9;
 }
 </style>
+
+
 <script setup>
 </script>
