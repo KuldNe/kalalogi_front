@@ -1,11 +1,47 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/test">Test</router-link> |
-    </nav>
-    <router-view/>
+
+    <div class="col">
+      <nav>
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark  shadow p-3 mb-5 " style="height: 100%">
+          <strong><span class="fs-4 align-items-center">Kalalogi</span></strong>
+          <hr>
+          <div class="d-grid gap-2">
+            <button type="button" class="btn btn-secondary btn-sm">
+              <router-link to="/">Püügiandmed</router-link>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm">
+              <router-link to="/login">Logi sisse</router-link>
+            </button>
+          </div>
+
+          <hr>
+          <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+               id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+              <strong>mdo</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+              <li><a class="dropdown-item" href="#">New project...</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li>
+              <a v-on:click="alerttest" class="dropdown-item">blalba</a>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div id="main">
+      <router-view/>
+    </div>
+
   </div>
 </template>
 
@@ -18,8 +54,21 @@
   color: #2c3e50;
 }
 
+#main {
+  margin-left: 280px;
+}
+
 nav {
-  padding: 30px;
+  padding: 0px;
+  background-color: azure;
+
+  position: fixed;
+  width: 280px;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  border-right: 1px solid #162636;
+  height: 100%;
 }
 
 nav a {
@@ -28,6 +77,19 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: white;
 }
 </style>
+
+
+<script>
+
+export default {
+  name: 'AppView',
+  methods: {
+    alerttest: function () {
+      alert('test')
+    }
+  }
+}
+</script>
