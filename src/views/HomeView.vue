@@ -19,7 +19,6 @@
     <catch-details />
   </div>
 
-
   </div>
 </template>
 
