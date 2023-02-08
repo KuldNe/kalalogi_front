@@ -80,8 +80,11 @@ nav a.router-link-exact-active {
 
 <script>
 
+import CatchDetails from "@/components/CatchDetails.vue";
+
 export default {
   name: 'AppView',
+  components: {CatchDetails},
   methods: {
     alerttest: function () {
       alert('test')
