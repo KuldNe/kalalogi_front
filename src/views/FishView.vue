@@ -3,7 +3,6 @@
   <div>
 
     <div id="view" class="col-5 bg-dark just rounded-2" style="margin-top: 100px; margin-left: 30px; padding: 30px">
-
       <AlertDanger :message="message"/>
       <form class="px-4 py-3">
         <span>Kalaliik</span>
@@ -43,7 +42,7 @@
   <div id="view" class="col-5  bg-dark just rounded-2" style="margin-top: 100px; margin-left: 30px; padding: 30px">
     <div>
       <span>Lisa pilt</span>
-      <input type="file" v-on:change="handleImage" accept="image/x-png,image/jpeg,image/gif">
+      <input type="file" v-on:change="" accept="image/x-png,image/jpeg,image/gif">
     </div>
   </div>
   <br>
@@ -66,8 +65,11 @@
 </template>
 
 <script>
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+
 export default {
   name: "FishView",
+  components: {AlertDanger},
   data: function () {
     return {
       fishes: [
@@ -87,6 +89,7 @@ export default {
       weight: 0,
       locationId: '',
       released: false,
+      message: ''
 
     }
   }
