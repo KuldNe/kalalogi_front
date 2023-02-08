@@ -72,7 +72,7 @@ export default {
         sessionStorage.setItem('roleType', this.loginResponse.roleType)
         localStorage.setItem('lang', 'EST')
         this.$emit('emitLoginSuccessEvent')
-        this.$router.push({name: 'atmsRoute'})
+        this.$router.push({name: 'homeRoute'})
       }).catch(error => {
         this.apiError = error.response.data
         this.message = this.apiError.message

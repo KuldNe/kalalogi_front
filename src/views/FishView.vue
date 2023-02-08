@@ -50,18 +50,7 @@
   <button type="button" class="btn btn-dark">Salvesta</button>
 </div>
 
-
-
-
-
-
-
 </div>
-
-
-
-
-
 </template>
 
 <script>
