@@ -18,6 +18,11 @@ const routes = [
     component: LoginView
   },
   {
+    path: '/fish',
+    name: 'fish',
+    component: FishView
+  },
+  {
     path: '/register',
     name: 'register',
     component: RegisterView
