@@ -17,7 +17,7 @@
               <router-link to="/login">Logi sisse/ Registreeru</router-link>
             </button>
             <button type="button" class="btn btn-secondary btn-sm">
-              <router-link to="/login">Minu püügid</router-link>
+              <router-link to="/catches">Minu püügid</router-link>
             </button>
           </div>
 
