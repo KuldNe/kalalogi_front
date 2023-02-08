@@ -7,9 +7,7 @@
         <AlertDanger :message="message"/>
         <form class="px-4 py-3">
           <span>Kalaliik</span>
-          <select v-model="fishId" class="form-select" aria-label="Default select example">
-            <option v-for="fish in fishes" :value="fish.fishId">{{ fish.name }}</option>
-          </select>
+          <SpeciesDropdown/>
           <br>
           <div class="input-group mb-3 col-2">
             <span class="input-group-text">pikkus</span>
@@ -58,14 +56,17 @@
 </template>
 
 <script>
+import SpeciesDropdown from "@/components/SpeciesDropdown.vue";
+
 export default {
   name: "FishView",
+  components: {SpeciesDropdown},
   data: function () {
     return {
-      fishes: [
+      species: [
         {
-          fishId: 0,
-          fishName: '',
+          speciesId: 0,
+          speciesName: '',
         }
       ],
       locations: [
