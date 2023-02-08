@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import FishView from "@/views/FishView.vue";
+import CatchesView from "@/views/CatchesView.vue";
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView
+  },
+  {
+    path: '/catches',
+    name: 'catches',
+    component: CatchesView
   },
   {
     path: '/fish',
