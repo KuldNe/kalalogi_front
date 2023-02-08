@@ -35,7 +35,13 @@
          <font-awesome-icon class="fa-2xl" icon="fa-regular fa-pen-to-square" />
        </div>
        <div class="col-2">
-         <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus" />
+        <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus" />
+
+
+
+
+
+
        </div>
      </div>
    </div>
