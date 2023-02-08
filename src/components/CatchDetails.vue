@@ -8,7 +8,7 @@
         <div class="col">
           <div class="row justify-content-center">
             <div class="col">
-              Kalaliik: latikas
+              Kalaliik:
             </div>
           </div>
           <div class="row">

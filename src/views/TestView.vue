@@ -11,26 +11,17 @@ export default {
   components: {CatchDetails},
   data: function () {
     return {
-      catches: {
-        species: [
-          {
-            speciesName:''
-          },
-        ],
+        speciesName: '',
         length: 0,
         weight: 0,
         catchDate: '10-09-22',
-        waterbody: [
-          {
-            waterbodyName: ''
-          }
-        ],
+        waterbody: '',
         userComment: '',
         wasReleased: true,
-        picture: ''
+        picture: '',
+
       }
     }
   }
-}
 </script>
 
