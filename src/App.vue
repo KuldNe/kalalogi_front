@@ -35,7 +35,7 @@
       </nav>
     </div>
     <div id="main">
-      <CatchDetails/>
+      <router-view/>
     </div>
 
   </div>
