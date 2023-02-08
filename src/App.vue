@@ -79,7 +79,6 @@ nav a.router-link-exact-active {
 
 
 <script>
-import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
   name: 'AppView',
