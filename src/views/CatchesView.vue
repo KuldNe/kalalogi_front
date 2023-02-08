@@ -37,7 +37,7 @@
        </div>
        <div class="col-2">
          <span>Lisa kala      </span>
-         <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
+         <router-link to="/fish"> <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/> </router-link>
        </div>
      </div>
    </div>
@@ -46,8 +46,15 @@
 </template>
 
 <script>
+import fishView from "@/views/FishView.vue";
+
 export default {
-  name: "CatchesView"
+  name: "CatchesView",
+  computed: {
+    fishView() {
+      return fishView
+    }
+  }
 }
 
 </script>
