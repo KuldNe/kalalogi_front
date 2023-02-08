@@ -46,14 +46,12 @@
 </template>
 
 <script>
-import fishView from "@/views/FishView.vue";
+
 
 export default {
   name: "CatchesView",
-  computed: {
-    fishView() {
-      return fishView
-    }
+  data: {
+
   }
 }
 
