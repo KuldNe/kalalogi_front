@@ -52,7 +52,7 @@ export default {
     login: function () {
       this.message = ''
       if (this.username == '' || this.password =='') {
-        this.message = 'täida kõik väljad'
+        // this.message = 'Täida kõik väljad'
       } else {
         this.sendLoginRequest();
       }
