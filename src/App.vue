@@ -21,79 +21,100 @@
             </button>
           </div>
 
+
           <hr>
-                    <div class="dropdown">
-                      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span>Filtreeri</span>
-                      </a>
-                      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-          <!--              <li><a class="dropdown-item" href="#">New project...</a></li>-->
-          <!--              <li><button type="button" class="btn btn-outline-light">Light</button></li>-->
-                        <a v-on:click="alerttest" class="dropdown-item">Kuupäev</a>
-                        <a v-on:click="alerttest" class="dropdown-item">Püügikoht</a>
-                        <a v-on:click="alerttest" class="dropdown-item">Kalaliik</a>
 
+          <span class="fs-6" >Filtreeri:</span>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" type="button">
+              Püügikoht
+            </button>
+            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">peipsi järv</a></li>
+              <li><a class="dropdown-item" href="#">emajõgi</a></li>
+              <li><a class="dropdown-item" href="#">lomp</a></li>
             </ul>
+          </div>
+
+          <br>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" type="button">
+              Kalaliik
+            </button>
+            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">haug</a></li>
+              <li><a class="dropdown-item" href="#">latikas</a></li>
+              <li><a class="dropdown-item" href="#">lest</a></li>
+            </ul>
+          </div>
+
         </div>
-      </div>
       </nav>
-      </div>
-      <div id="main">
-        <router-view/>
-      </div>
+    </div>
+    <div id="main">
+      <router-view/>
+    </div>
 
-      </div>
-    </template>
+  </div>
+</template>
 
-    <style>
-    #app {
-      font-family: Avenir, Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-align: center;
-      color: #2c3e50;
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#main {
+  margin-left: 280px;
+}
+
+nav {
+  padding: 0px;
+  background-color: azure;
+
+  position: fixed;
+  width: 280px;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  border-right: 1px solid #162636;
+  height: 100%;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: white;
+}
+</style>
+
+
+<script>
+
+
+
+export default {
+  name: 'AppView',
+  methods: {
+    alerttest: function () {
+      alert('test')
     }
-
-    #main {
-      margin-left: 280px;
-    }
-
-    nav {
-      padding: 0px;
-      background-color: azure;
-
-      position: fixed;
-      width: 280px;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      border-right: 1px solid #162636;
-      height: 100%;
-    }
-
-    nav a {
-      font-weight: bold;
-      color: #2c3e50;
-    }
-
-    nav a.router-link-exact-active {
-      color: white;
-    }
-    </style>
-
-
-    <script>
-
-    import CatchDetails from "@/components/CatchDetails.vue";
-
-    export default {
-      name: 'AppView',
-      components: {CatchDetails},
-      methods: {
-        alerttest: function () {
-          alert('test')
-        }
-      }
-    }
-    </script>
+  }
+}
+</script>

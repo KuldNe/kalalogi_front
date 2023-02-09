@@ -1,14 +1,14 @@
 <template>
-  <CatchDetails/>
+  <FishDetails/>
 </template>
 
 <script>
 
-import CatchDetails from "@/components/CatchDetails.vue";
+import FishDetails from "@/components/FishDetails.vue";
 
 export default {
   name: "TestView",
-  components: {CatchDetails},
+  components: {FishDetails},
   data: function () {
     return {
         speciesName: '',

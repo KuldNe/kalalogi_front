@@ -1,22 +1,7 @@
 <template>
   <div>
-  <div style="margin-top: 8px; margin-left: 8px; padding: 8px">
-    <catch-details />
-  </div>
-  <div style="margin-top: 8px; margin-left: 8px; padding: 8px">
-    <catch-details />
-  </div>
-  <div style="margin-top: 8px; margin-left: 8px; padding: 8px">
-    <catch-details />
-  </div>
-  <div style="margin-top: 8px; margin-left: 8px; padding: 8px">
-    <catch-details />
-  </div>
-  <div style="margin-top: 8px; margin-left: 8px; padding: 8px">
-    <catch-details />
-  </div>
-  <div style="margin-top: 8px; margin-left: 8px; padding: 8px">
-    <catch-details />
+  <div>
+    <fish-details />
   </div>
 
   </div>
@@ -26,11 +11,11 @@
 // @ is an alias to /src
 
 
-import CatchDetails from "@/components/CatchDetails.vue";
+import FishDetails from "@/components/FishDetails.vue";
 
 export default {
   name: 'HomeView',
-  components: {CatchDetails}
+  components: {FishDetails}
 }
 </script>
 
