@@ -17,7 +17,11 @@
           <div class="input-group mb-3 col-2">
             <span class="input-group-text">kaal</span>
             <input v-model="weight" type="number" min="0" class="form-control">
-            <span class="input-group-text">kg</span>
+            <span class="input-group-text">g</span>
+          </div>
+          <div class="col">
+            <span>Kuupäev</span>
+            <input id="startDate" disabled class="form-control" type="date" />
           </div>
           <span>Püügikoht</span>
           <select v-model="locationId" class="form-select" aria-label="Default select example">
@@ -78,6 +82,7 @@ export default {
       fishId: 0,
       length: 0,
       weight: 0,
+      date:'',
       locationId: '',
       released: false,
       picture: ''
