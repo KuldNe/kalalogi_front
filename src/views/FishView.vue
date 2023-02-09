@@ -6,8 +6,8 @@
       <AlertDanger :message="message"/>
       <form class="px-4 py-3">
         <span>Kalaliik</span>
-        <select v-model="fishId" class="form-select" aria-label="Default select example">
-          <option v-for="fish in fishes" :value="fish.fishId">{{ fish.name }}</option>
+        <select v-model="speciesId" class="form-select" aria-label="Default select example">
+          <option v-for="specie in species" :value="specie.speciesId">{{ specie.speciesName }}</option>
         </select>
         <br>
         <div class="input-group mb-3 col-2">
@@ -61,10 +61,10 @@ export default {
   components: {AlertDanger},
   data: function () {
     return {
-      fishes: [
+      species: [
         {
-          fishId: 0,
-          fishName: '',
+          speciesId: 0,
+          speciesName: '',
         }
       ],
       locations: [
@@ -75,7 +75,7 @@ export default {
           longitude: ''
         }
       ],
-      fishId: 0,
+      speciesId: 0,
       length: 0,
       weight: 0,
       locationId: '',
@@ -86,10 +86,10 @@ export default {
   },
 
   methods: {
-    getFishes: function () {
+    getSpecies: function () {
       this.$http.get("/fish/species")
           .then(response => {
-            this.fishes = response.data
+            this.species = response.data
           })
           .catch(error => {
             console.log(error)
@@ -97,8 +97,9 @@ export default {
     }
 
   },
+
   beforeMount() {
-    this.getFishes()
+    this.getSpecies()
   }
 }
 </script>

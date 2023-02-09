@@ -4,7 +4,7 @@
     <div class="align-items-center row text-white bg-dark">
       <div class="col-2">
         <span>Kuupäev</span>
-        <input  id="startDate" class="form-control" type="date" />
+        <input v-model="date" id="startDate" class="form-control" type="date" />
       </div>
 
       <div class="col-5">
@@ -15,7 +15,7 @@
       </div>
       <div class="col">
         <span>Lisa püük                </span>
-        <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-check" />
+        <font-awesome-icon v-on:click="testAlert" class="fa-2xl" icon="fa-regular fa-square-check" />
       </div>
     </div>
   </div>
@@ -59,7 +59,8 @@ export default {
           longitude: ''
         }
       ],
-      locationId: 0
+      locationId: 0,
+      date: ''
     }
   },
 
@@ -73,6 +74,10 @@ export default {
             console.log(error)
           })
     },
+
+    testAlert: function () {
+      alert(this.date)
+    }
 
   },
   beforeMount() {
