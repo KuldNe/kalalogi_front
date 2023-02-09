@@ -47,13 +47,38 @@
 
 <script>
 
-
 export default {
   name: "CatchesView",
-  data: {
+  data: function () {
+    return {
+      locations: [
+        {
+          locationId: 0,
+          locationName: '',
+          latitude: '',
+          longitude: ''
+        }
+      ],
+      locationId: 0
+    }
+  },
 
+  methods: {
+    getAllLocations: function () {
+      this.$http.get("/some/path")
+          .then(response => {
+            this.locations = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
+
+  },
+  beforeMount() {
+    this.getAllLocations()
   }
-}
 
+}
 </script>
 
