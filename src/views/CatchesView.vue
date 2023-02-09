@@ -65,7 +65,7 @@ export default {
 
   methods: {
     getAllLocations: function () {
-      this.$http.get("/some/path")
+      this.$http.get("/waterbodies")
           .then(response => {
             this.locations = response.data
           })
