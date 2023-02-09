@@ -4,7 +4,7 @@
     <div class="align-items-center row text-white bg-dark">
       <div class="col-2">
         <span>Kuupäev</span>
-        <input id="startDate" class="form-control" type="date" />
+        <input  id="startDate" class="form-control" type="date" />
       </div>
 
       <div class="col-5">
