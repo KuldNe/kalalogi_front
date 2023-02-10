@@ -1,6 +1,7 @@
 <template>
  <div>
   <div class="container m-3 p-3 ">
+    <AlertDanger :message="message" />
     <div class="align-items-center row text-white bg-dark">
       <div class="col-2">
         <span>Kuupäev</span>
@@ -15,7 +16,7 @@
       </div>
       <div class="col">
         <span>Lisa püük                </span>
-        <font-awesome-icon v-on:click="testAlert" class="fa-2xl" icon="fa-regular fa-square-check" />
+        <font-awesome-icon v-on:click="checkAndAddCatch" class="fa-2xl" icon="fa-regular fa-square-check" />
       </div>
     </div>
   </div>
@@ -47,8 +48,11 @@
 
 <script>
 
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+
 export default {
   name: "CatchesView",
+  components: {AlertDanger},
   data: function () {
     return {
       locations: [
@@ -59,8 +63,10 @@ export default {
           longitude: ''
         }
       ],
+      message: '',
       locationId: 0,
-      date: ''
+      date: '',
+      userId: sessionStorage.getItem('userId')
     }
   },
 
@@ -75,8 +81,28 @@ export default {
           })
     },
 
-    testAlert: function () {
-      alert(this.date)
+    checkAndAddCatch: function () {
+      if (this.date !=='' && (this.userId != null) && (this.locationId !== 0))
+      {
+            this.addCatch()
+      } else {
+        this.message = 'Täida kõik väljad!'
+      }
+
+    },
+
+
+    addCatch: function () {
+      this.$http.post("/catch", {
+        date: this.date,
+        userId: this.userId,
+        waterbodyId: this.locationId
+          }
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
     }
 
   },
