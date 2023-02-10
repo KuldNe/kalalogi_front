@@ -2,7 +2,7 @@
  <div>
   <div class="container m-3 p-3 ">
     <AlertDanger :message="message" />
-    <div class="align-items-center row text-white bg-dark">
+    <div class="align-items-center row text-white bg-dark" style="margin-top: 10px; margin-left: 10px; padding: 10px">
       <div class="col-2">
         <span>Kuupäev</span>
         <input v-model="date" id="startDate" class="form-control" type="date" />
@@ -22,7 +22,7 @@
   </div>
 
    <div class="container m-3 p-3">
-     <div class="align-items-center row text-white bg-dark">
+     <div class="align-items-center row text-white bg-dark" style="margin-top: 10px; margin-left: 10px; padding: 15px">
        <div class="col-2">
          <span>Kuupäev:     </span>
          <span>Date</span>
