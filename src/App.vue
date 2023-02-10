@@ -3,7 +3,7 @@
 
     <div class="col">
       <nav>
-        <div @emitLoginSuccessEvent="updateUserAccess" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark  shadow p-3 mb-5 " style="height: 100%">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark  shadow p-3 mb-5 " style="height: 100%">
           <img
               src="https://i.fbcd.co/products/original/4dd08023a2500a7efaf141af098d33ad7832bd3f45350ff0df4a4e317a62ce83.jpg"
               alt="" width="32" height="32" class="rounded-circle me-2">
@@ -65,7 +65,7 @@
       </nav>
     </div>
     <div id="main">
-      <router-view/>
+      <router-view @emitLoginSuccessEvent="updateUserAndReload"/>
     </div>
 
   </div>
@@ -90,6 +90,11 @@ export default {
     updateUserAccess: function () {
       sessionStorage.getItem("roleType") === 'user' ? this.isUser=true : this.isUser=false
       sessionStorage.getItem("roleType") === 'admin' ? this.isAdmin=true : this.isAdmin=false
+    },
+    updateUserAndReload: function () {
+      this.updateUserAccess()
+      this.$router.push({name: 'homeRoute'})
+      this.$router.go()
     },
   },
   beforeMount() {
