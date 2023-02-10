@@ -30,6 +30,7 @@ export default {
 
   data: function () {
     return {
+
       loginResponse: {
         userId: 0,
         roleType: ''
@@ -43,7 +44,7 @@ export default {
       message: '',
 
       username: '',
-      password: ''
+      password: '',
     }
   },
 

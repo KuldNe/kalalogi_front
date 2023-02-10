@@ -16,7 +16,7 @@
       </div>
       <div class="col">
         <span>Lisa püük                </span>
-        <font-awesome-icon v-on:click="checkAndAddCatch" class="fa-2xl" icon="fa-regular fa-square-check" />
+        <font-awesome-icon v-on:click="checkAndAddCatch" class="fa-2xl icon-button" icon="fa-regular fa-square-check" />
       </div>
     </div>
   </div>

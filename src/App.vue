@@ -3,7 +3,7 @@
 
     <div class="col">
       <nav>
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark  shadow p-3 mb-5 " style="height: 100%">
+        <div @emitLoginSuccessEvent="updateUserAccess" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark  shadow p-3 mb-5 " style="height: 100%">
           <img
               src="https://i.fbcd.co/products/original/4dd08023a2500a7efaf141af098d33ad7832bd3f45350ff0df4a4e317a62ce83.jpg"
               alt="" width="32" height="32" class="rounded-circle me-2">
@@ -13,10 +13,13 @@
             <button type="button" class="btn btn-secondary btn-sm">
               <router-link to="/">Püügiandmed</router-link>
             </button>
-            <button type="button" class="btn btn-secondary btn-sm">
+            <button v-if="!isUser && !isAdmin" type="button" class="btn btn-secondary btn-sm">
               <router-link to="/login">Logi sisse/ Registreeru</router-link>
             </button>
-            <button type="button" class="btn btn-secondary btn-sm">
+            <button v-if="isUser || isAdmin" v-on:click="logout" type="button" class="btn btn-secondary btn-sm">
+              Logi välja
+            </button>
+            <button v-if="isUser"  type="button" class="btn btn-secondary btn-sm">
               <router-link to="/catches">Minu püügid</router-link>
             </button>
           </div>
@@ -68,6 +71,33 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'AppView',
+  data: function () {
+    return {
+      isUser: false,
+      isAdmin: false
+    }
+  },
+
+  methods: {
+    logout: function () {
+      sessionStorage.clear()
+      this.roleType= sessionStorage.getItem("roleType")
+      this.$router.go()
+    },
+    updateUserAccess: function () {
+      sessionStorage.getItem("roleType") === 'user' ? this.isUser=true : this.isUser=false
+      sessionStorage.getItem("roleType") === 'admin' ? this.isAdmin=true : this.isAdmin=false
+    },
+  },
+  beforeMount() {
+    this.updateUserAccess()
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -105,16 +135,3 @@ nav a.router-link-exact-active {
 </style>
 
 
-<script>
-
-
-
-export default {
-  name: 'AppView',
-  methods: {
-    alerttest: function () {
-      alert('test')
-    }
-  }
-}
-</script>
