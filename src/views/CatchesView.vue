@@ -1,10 +1,11 @@
 <template>
  <div>
   <div class="container m-3 p-3 ">
+    <AlertDanger :message="message"/>
     <div class="align-items-center row text-white bg-dark">
       <div class="col-2">
         <span>Kuupäev</span>
-        <input  id="startDate" class="form-control" type="date" />
+        <input v-model="date" id="startDate" class="form-control" type="date" />
       </div>
 
       <div class="col-5">
@@ -15,7 +16,7 @@
       </div>
       <div class="col">
         <span>Lisa püük                </span>
-        <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-check" />
+        <font-awesome-icon v-on:click="checkAndAddCatch" class="fa-2xl" icon="fa-regular fa-square-check" />
       </div>
     </div>
   </div>
@@ -47,8 +48,11 @@
 
 <script>
 
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+
 export default {
   name: "CatchesView",
+  components: {AlertDanger},
   data: function () {
     return {
       locations: [
@@ -59,13 +63,18 @@ export default {
           longitude: ''
         }
       ],
-      locationId: 0
+      message: '',
+      locationId: 0,
+      date: '',
+      userId: sessionStorage.getItem('userId')
     }
   },
 
+    //See on veekogude dropdowni GET meetod:
+
   methods: {
     getAllLocations: function () {
-      this.$http.get("/some/path")
+      this.$http.get("/waterbodies")
           .then(response => {
             this.locations = response.data
           })
@@ -73,6 +82,35 @@ export default {
             console.log(error)
           })
     },
+
+      // See meetod kontrollib, kas saame catchi addida
+
+    checkAndAddCatch: function () {
+      if (this.date !== '' && (this.userId != null) && (this.locationId !==0))
+          this.addCatch()
+          else {this.message = 'Täida kõik väljad'
+      }
+    },
+
+
+
+
+          //See on meie POST teenuse jaoks vajalik meetod:
+
+    addCatch: function ()  {
+        this.$http.post("/catch", {
+          date: this.date,
+          userId: this.userId,
+          waterbodyId: this.locationId
+            }
+        ).then(response => {
+          console.log(response.data)
+        }).catch(error => {
+          console.log(error)
+        })
+
+
+    }
 
   },
   beforeMount() {
