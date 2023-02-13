@@ -6,9 +6,7 @@
       <AlertDanger :message="message"/>
       <form class="px-4 py-3">
         <span>Kalaliik</span>
-        <select v-model="fishId" class="form-select" aria-label="Default select example">
-          <option v-for="fish in fishes" :value="fish.fishId">{{ fish.name }}</option>
-        </select>
+        <SpeciesDropdown/>
         <br>
         <div class="input-group mb-3 col-2">
           <span class="input-group-text">pikkus</span>
@@ -27,12 +25,18 @@
         <br>
         <div class="input-group">
           <span class="input-group-text">Kommentaar</span>
-          <textarea class="form-control" aria-label="With textarea"></textarea>
+          <textarea v-model="comment" class="form-control" aria-label="With textarea"></textarea>
         </div>
         <br>
         <div>
           <span>Vabastatud    </span>
           <input v-model="released" class="form-check-input" type="checkbox">
+          <label class="form-check-label">
+          </label>
+        </div>
+        <div>
+          <span>Avalik    </span>
+          <input v-model="isPublic" class="form-check-input" type="checkbox">
           <label class="form-check-label">
           </label>
         </div>
@@ -55,10 +59,11 @@
 
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import SpeciesDropdown from "@/components/SpeciesDropdown.vue";
 
 export default {
   name: "FishView",
-  components: {AlertDanger},
+  components: {SpeciesDropdown, AlertDanger},
   data: function () {
     return {
       fishes: [
@@ -80,7 +85,9 @@ export default {
       weight: 0,
       locationId: '',
       released: false,
-      message: ''
+      message: '',
+      isPublic: false,
+      comment: ''
 
     }
   },
