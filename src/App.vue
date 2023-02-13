@@ -13,10 +13,13 @@
             <button type="button" class="btn btn-secondary btn-sm">
               <router-link to="/">Püügiandmed</router-link>
             </button>
-            <button type="button" class="btn btn-secondary btn-sm">
+            <button v-if="!isUser && !isAdmin" type="button" class="btn btn-secondary btn-sm">
               <router-link to="/login">Logi sisse/ Registreeru</router-link>
             </button>
-            <button type="button" class="btn btn-secondary btn-sm">
+            <button v-if="isUser || isAdmin" v-on:click="logout" type="button" class="btn btn-secondary btn-sm">
+              Logi välja
+            </button>
+            <button v-if="isUser"  type="button" class="btn btn-secondary btn-sm">
               <router-link to="/catches">Minu püügid</router-link>
             </button>
           </div>
@@ -62,11 +65,43 @@
       </nav>
     </div>
     <div id="main">
-      <router-view/>
+      <router-view @emitLoginSuccessEvent="updateUserAndReload"/>
     </div>
 
   </div>
 </template>
+
+<script>
+export default {
+  name: 'AppView',
+  data: function () {
+    return {
+      isUser: false,
+      isAdmin: false
+    }
+  },
+
+  methods: {
+    logout: function () {
+      sessionStorage.clear()
+      this.roleType= sessionStorage.getItem("roleType")
+      this.$router.go()
+    },
+    updateUserAccess: function () {
+      sessionStorage.getItem("roleType") === 'user' ? this.isUser=true : this.isUser=false
+      sessionStorage.getItem("roleType") === 'admin' ? this.isAdmin=true : this.isAdmin=false
+    },
+    updateUserAndReload: function () {
+      this.updateUserAccess()
+      this.$router.push({name: 'homeRoute'})
+      this.$router.go()
+    },
+  },
+  beforeMount() {
+    this.updateUserAccess()
+  }
+}
+</script>
 
 <style>
 #app {
@@ -105,16 +140,3 @@ nav a.router-link-exact-active {
 </style>
 
 
-<script>
-
-
-
-export default {
-  name: 'AppView',
-  methods: {
-    alerttest: function () {
-      alert('test')
-    }
-  }
-}
-</script>

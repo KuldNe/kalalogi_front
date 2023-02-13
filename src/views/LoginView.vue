@@ -16,7 +16,6 @@
       </form>
 
 <router-link to="/register">Oled uus? Registreeru!</router-link>
-<!--      <a class="btn btn-secondary btn-sm" href="/#/register" role="button">Oled uus? Registreeru!</a>-->
 
 
   </div>
@@ -30,6 +29,7 @@ export default {
 
   data: function () {
     return {
+
       loginResponse: {
         userId: 0,
         roleType: ''
@@ -43,7 +43,7 @@ export default {
       message: '',
 
       username: '',
-      password: ''
+      password: '',
     }
   },
 
@@ -72,7 +72,7 @@ export default {
         sessionStorage.setItem('roleType', this.loginResponse.roleType)
         localStorage.setItem('lang', 'EST')
         this.$emit('emitLoginSuccessEvent')
-        this.$router.push({name: 'homeRoute'})
+        // this.$router.push({name: 'homeRoute'})
       }).catch(error => {
         this.apiError = error.response.data
         this.message = this.apiError.message

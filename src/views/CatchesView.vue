@@ -1,7 +1,7 @@
 <template>
  <div>
   <div class="container m-3 p-3 ">
-    <AlertDanger :message="message"/>
+    <AlertDanger :message="message" />
     <div class="align-items-center row text-white bg-dark">
       <div class="col-2">
         <span>Kuupäev</span>
@@ -16,7 +16,7 @@
       </div>
       <div class="col">
         <span>Lisa püük                </span>
-        <font-awesome-icon v-on:click="checkAndAddCatch" class="fa-2xl" icon="fa-regular fa-square-check" />
+        <font-awesome-icon v-on:click="checkAndAddCatch" class="fa-2xl icon-button" icon="fa-regular fa-square-check" />
       </div>
     </div>
   </div>
@@ -70,8 +70,6 @@ export default {
     }
   },
 
-    //See on veekogude dropdowni GET meetod:
-
   methods: {
     getAllLocations: function () {
       this.$http.get("/waterbodies")
@@ -83,33 +81,28 @@ export default {
           })
     },
 
-      // See meetod kontrollib, kas saame catchi addida
-
     checkAndAddCatch: function () {
-      if (this.date !== '' && (this.userId != null) && (this.locationId !==0))
-          this.addCatch()
-          else {this.message = 'Täida kõik väljad'
+      if (this.date !=='' && (this.userId != null) && (this.locationId !== 0))
+      {
+            this.addCatch()
+      } else {
+        this.message = 'Täida kõik väljad!'
       }
+
     },
 
 
-
-
-          //See on meie POST teenuse jaoks vajalik meetod:
-
-    addCatch: function ()  {
-        this.$http.post("/catch", {
-          date: this.date,
-          userId: this.userId,
-          waterbodyId: this.locationId
-            }
-        ).then(response => {
-          console.log(response.data)
-        }).catch(error => {
-          console.log(error)
-        })
-
-
+    addCatch: function () {
+      this.$http.post("/catch", {
+        date: this.date,
+        userId: this.userId,
+        waterbodyId: this.locationId
+          }
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
     }
 
   },

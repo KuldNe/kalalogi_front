@@ -6,7 +6,9 @@
       <AlertDanger :message="message"/>
       <form class="px-4 py-3">
         <span>Kalaliik</span>
-        <SpeciesDropdown/>
+        <select v-model="speciesId" class="form-select" aria-label="Default select example">
+          <option v-for="specie in species" :value="specie.speciesId">{{ specie.speciesName }}</option>
+        </select>
         <br>
         <div class="input-group mb-3 col-2">
           <span class="input-group-text">pikkus</span>
@@ -25,18 +27,12 @@
         <br>
         <div class="input-group">
           <span class="input-group-text">Kommentaar</span>
-          <textarea v-model="comment" class="form-control" aria-label="With textarea"></textarea>
+          <textarea class="form-control" aria-label="With textarea"></textarea>
         </div>
         <br>
         <div>
           <span>Vabastatud    </span>
           <input v-model="released" class="form-check-input" type="checkbox">
-          <label class="form-check-label">
-          </label>
-        </div>
-        <div>
-          <span>Avalik    </span>
-          <input v-model="isPublic" class="form-check-input" type="checkbox">
           <label class="form-check-label">
           </label>
         </div>
@@ -59,17 +55,16 @@
 
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
-import SpeciesDropdown from "@/components/SpeciesDropdown.vue";
 
 export default {
   name: "FishView",
-  components: {SpeciesDropdown, AlertDanger},
+  components: {AlertDanger},
   data: function () {
     return {
-      fishes: [
+      species: [
         {
-          fishId: 0,
-          fishName: '',
+          speciesId: 0,
+          speciesName: '',
         }
       ],
       locations: [
@@ -80,23 +75,21 @@ export default {
           longitude: ''
         }
       ],
-      fishId: 0,
+      speciesId: 0,
       length: 0,
       weight: 0,
       locationId: '',
       released: false,
-      message: '',
-      isPublic: false,
-      comment: ''
+      message: ''
 
     }
   },
 
   methods: {
-    getFishes: function () {
+    getSpecies: function () {
       this.$http.get("/fish/species")
           .then(response => {
-            this.fishes = response.data
+            this.species = response.data
           })
           .catch(error => {
             console.log(error)
@@ -104,8 +97,9 @@ export default {
     }
 
   },
+
   beforeMount() {
-    this.getFishes()
+    this.getSpecies()
   }
 }
 </script>

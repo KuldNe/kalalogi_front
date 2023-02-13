@@ -13,6 +13,11 @@
     color: red;
 }
 
+.icon-button {
+    cursor: pointer;
+}
+
 body {
     background-color: darkgrey;
 }
+
