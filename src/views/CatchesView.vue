@@ -2,7 +2,7 @@
  <div>
   <div class="container m-3 p-3 ">
     <AlertDanger :message="message" />
-    <div class="align-items-center row text-white bg-dark">
+    <div class="align-items-center row text-white bg-dark" style="margin-top: 10px; margin-left: 10px; padding: 10px">
       <div class="col-2">
         <span>Kuupäev</span>
         <input v-model="date" id="startDate" class="form-control" type="date" />
@@ -22,13 +22,13 @@
   </div>
 
    <div class="container m-3 p-3">
-     <div v-for="acatch in catches"  class="align-items-center row text-white bg-dark">
+     <div v-for="acatch in catches" class="align-items-center row text-white bg-dark" style="margin-top: 10px; margin-left: 10px; padding: 15px">
        <div class="col-2">
-         <span>Kuupäev:  {{acatch.catchDate}}   </span>
+         <span>Kuupäev: {{acatch.catchDate}}</span>
        </div>
 
        <div class="col-5">
-         <span>Püügikoht:  {{acatch.waterbodyName}}  </span>
+         <span>Püügikoht: {{acatch.waterbodyName}}</span>
        </div>
        <div class="col-2">
          <span>Muuda      </span>
@@ -36,7 +36,8 @@
        </div>
        <div class="col-2">
          <span>Lisa kala      </span>
-         <router-link :to="{name: 'fishRoute', query: {catchId: acatch.catchId}}"> <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/> </router-link>
+         <router-link :to="{name: 'fishRoute', query: {catchId: acatch.catchId}}">
+           <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/> </router-link>
        </div>
      </div>
    </div>
@@ -57,14 +58,12 @@ export default {
         {
           catchId: 0,
           catchDate: '',
-          waterbodyId:'',
-          waterbodyName:'',
-          latitude:'',
-          longitude:''
+          waterbodyId: 0,
+          waterbodyName: '',
+          latitude: '',
+          longitude: ''
         }
-
       ],
-
 
       locations: [
         {
@@ -81,8 +80,6 @@ export default {
     }
   },
 
-    //See on veekogude dropdowni GET meetod:
-
   methods: {
     getAllLocations: function () {
       this.$http.get("/waterbodies")
@@ -94,8 +91,6 @@ export default {
           })
     },
 
-      // See meetod kontrollib, kas saame catchi addida
-
     checkAndAddCatch: function () {
       if (this.date !=='' && (this.userId != null) && (this.locationId !== 0))
       {
@@ -103,9 +98,9 @@ export default {
       } else {
         this.message = 'Täida kõik väljad!'
       }
+
     },
 
-          //See on meie POST teenuse jaoks vajalik meetod:
 
     addCatch: function () {
       this.$http.post("/catch", {
@@ -132,7 +127,6 @@ export default {
         console.log(error)
       })
     },
-
 
   },
   beforeMount() {

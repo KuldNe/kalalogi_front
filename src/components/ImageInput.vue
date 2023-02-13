@@ -15,10 +15,10 @@ export default {
   methods: {
     handleImage: function (event) {
       const selectedImage = event.target.files[0];
-      this.emitBase64(selectedImage);
+      this.createBase64Image(selectedImage);
     },
 
-    emitBase64: function (fileObject) {
+    createBase64Image: function (fileObject) {
       const reader = new FileReader();
       reader.onload = () => {
         this.pictureDataBase64 = reader.result;
