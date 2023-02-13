@@ -22,15 +22,13 @@
   </div>
 
    <div class="container m-3 p-3">
-     <div class="align-items-center row text-white bg-dark" style="margin-top: 10px; margin-left: 10px; padding: 15px">
+     <div v-for="acatch in catches" class="align-items-center row text-white bg-dark" style="margin-top: 10px; margin-left: 10px; padding: 15px">
        <div class="col-2">
-         <span>Kuupäev:     </span>
-         <span>Date</span>
+         <span>Kuupäev: {{acatch.catchDate}}</span>
        </div>
 
        <div class="col-5">
-         <span>Püügikoht:    </span>
-         <span>Mingi järv</span>
+         <span>Püügikoht: {{acatch.waterbodyName}}</span>
        </div>
        <div class="col-2">
          <span>Muuda      </span>
@@ -38,7 +36,8 @@
        </div>
        <div class="col-2">
          <span>Lisa kala      </span>
-         <router-link to="/fish"> <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/> </router-link>
+         <router-link :to="{name: 'fishRoute', query: {catchId: acatch.catchId}}">
+           <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/> </router-link>
        </div>
      </div>
    </div>
@@ -55,6 +54,17 @@ export default {
   components: {AlertDanger},
   data: function () {
     return {
+      catches: [
+        {
+          catchId: 0,
+          catchDate: '',
+          waterbodyId: 0,
+          waterbodyName: '',
+          latitude: '',
+          longitude: ''
+        }
+      ],
+
       locations: [
         {
           locationId: 0,
@@ -103,11 +113,25 @@ export default {
       }).catch(error => {
         console.log(error)
       })
-    }
+    },
+
+    getUserCatches: function () {
+      this.$http.get("/catches", {
+            params: {
+              userId: this.userId,
+            }
+          }
+      ).then(response => {
+        this.catches = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
   },
   beforeMount() {
     this.getAllLocations()
+    this.getUserCatches()
   }
 
 }

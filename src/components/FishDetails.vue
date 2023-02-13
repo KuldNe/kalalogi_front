@@ -3,7 +3,8 @@
     <div v-for="fish in fishies" class="container" style="margin-top: 8px; margin-left: 8px; padding: 8px">
       <div class="align-items-center row text-white bg-dark">
         <div class="col">
-          <img src="../assets/images.png" class="img-thumbnail" width="200" height="200" alt="Kalapilt">
+          <img v-if="fish.picture==='' || fish.picture==null" src="../assets/images.png" class="img-thumbnail" width="200" height="200" alt="Kalapilt">
+          <img v-else :src="fish.picture" class="img-thumbnail" width="200" height="200" alt="Kalapilt">
         </div>
         <div class="col">
           <div class="row justify-content-center">
@@ -56,7 +57,8 @@ export default {
         locationName: '',
         released: false,
         comment: '',
-        userName: ''
+        userName: '',
+        picture: ''
       }
     ]
   }
