@@ -1,7 +1,8 @@
 <template>
  <div>
   <div class="container m-3 p-3 ">
-    <AlertDanger :message="message" />
+    <AlertDanger :message="messageDanger" />
+    <AlertSuccess :message="messageSuccess" />
     <div class="align-items-center row text-white bg-dark" style="margin-top: 10px; margin-left: 10px; padding: 10px">
       <div class="col-2">
         <span>Kuupäev</span>
@@ -13,6 +14,9 @@
         <select v-model="locationId" class="form-select" aria-label="Default select example">
           <option v-for="location in locations" :value="location.locationId">{{ location.locationName }}</option>
         </select>
+      </div>
+      <div class="col">
+        <font-awesome-icon icon="fa-solid fa-plus" />
       </div>
       <div class="col">
         <span>Lisa püük                </span>
@@ -48,10 +52,11 @@
 <script>
 
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 
 export default {
   name: "CatchesView",
-  components: {AlertDanger},
+  components: {AlertSuccess, AlertDanger},
   data: function () {
     return {
       catches: [
@@ -65,6 +70,8 @@ export default {
         }
       ],
 
+
+
       locations: [
         {
           locationId: 0,
@@ -73,7 +80,9 @@ export default {
           longitude: ''
         }
       ],
-      message: '',
+
+      messageDanger:'',
+      messageSuccess:'',
       locationId: 0,
       date: '',
       userId: sessionStorage.getItem('userId')
@@ -96,11 +105,10 @@ export default {
       {
             this.addCatch()
       } else {
-        this.message = 'Täida kõik väljad!'
+        this.messageDanger = 'Täida kõik väljad!'
       }
 
     },
-
 
     addCatch: function () {
       this.$http.post("/catch", {
@@ -109,10 +117,17 @@ export default {
         waterbodyId: this.locationId
           }
       ).then(response => {
-        console.log(response.data)
+        this.messageSuccess = 'Püük edukalt lisatud'
+        this.timeoutAndReloadPage(1000)
       }).catch(error => {
         console.log(error)
       })
+    },
+
+    timeoutAndReloadPage: function (timeOut) {
+      setTimeout(() => {
+        this.$router.go(0)
+      }, timeOut)
     },
 
     getUserCatches: function () {
