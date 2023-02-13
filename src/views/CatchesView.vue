@@ -22,15 +22,13 @@
   </div>
 
    <div class="container m-3 p-3">
-     <div class="align-items-center row text-white bg-dark">
+     <div v-for="acatch in catches"  class="align-items-center row text-white bg-dark">
        <div class="col-2">
-         <span>Kuupäev:     </span>
-         <span>Date</span>
+         <span>Kuupäev:  {{acatch.catchDate}}   </span>
        </div>
 
        <div class="col-5">
-         <span>Püügikoht:    </span>
-         <span>Mingi järv</span>
+         <span>Püügikoht:  {{acatch.waterbodyName}}  </span>
        </div>
        <div class="col-2">
          <span>Muuda      </span>
@@ -38,7 +36,7 @@
        </div>
        <div class="col-2">
          <span>Lisa kala      </span>
-         <router-link to="/fish"> <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/> </router-link>
+         <router-link :to="{name: 'fishRoute', query: {catchId: acatch.catchId}}"> <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/> </router-link>
        </div>
      </div>
    </div>
@@ -55,6 +53,19 @@ export default {
   components: {AlertDanger},
   data: function () {
     return {
+      catches: [
+        {
+          catchId: 0,
+          catchDate: '',
+          waterbodyId:'',
+          waterbodyName:'',
+          latitude:'',
+          longitude:''
+        }
+
+      ],
+
+
       locations: [
         {
           locationId: 0,
@@ -70,6 +81,8 @@ export default {
     }
   },
 
+    //See on veekogude dropdowni GET meetod:
+
   methods: {
     getAllLocations: function () {
       this.$http.get("/waterbodies")
@@ -81,6 +94,8 @@ export default {
           })
     },
 
+      // See meetod kontrollib, kas saame catchi addida
+
     checkAndAddCatch: function () {
       if (this.date !=='' && (this.userId != null) && (this.locationId !== 0))
       {
@@ -88,9 +103,9 @@ export default {
       } else {
         this.message = 'Täida kõik väljad!'
       }
-
     },
 
+          //See on meie POST teenuse jaoks vajalik meetod:
 
     addCatch: function () {
       this.$http.post("/catch", {
@@ -103,11 +118,26 @@ export default {
       }).catch(error => {
         console.log(error)
       })
-    }
+    },
+
+    getUserCatches: function () {
+      this.$http.get("/catches", {
+            params: {
+              userId: this.userId,
+            }
+          }
+      ).then(response => {
+        this.catches = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
 
   },
   beforeMount() {
     this.getAllLocations()
+    this.getUserCatches()
   }
 
 }

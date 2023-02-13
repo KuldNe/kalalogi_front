@@ -56,7 +56,8 @@ export default {
         locationName: '',
         released: false,
         comment: '',
-        userName: ''
+        userName: '',
+        picture:''
       }
     ]
   }
