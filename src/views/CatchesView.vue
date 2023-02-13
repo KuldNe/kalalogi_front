@@ -16,31 +16,22 @@
           </select>
         </div>
         <div class="col">
+          <span>Lisa asukoht</span>
+          <font-awesome-icon v-on:click="checkAndAddCatch" class="fa-2xl icon-button"
+                             icon="fa-regular fa-square-check"/>
+
+        </div>
+        <div class="col">
           <span>Lisa püük                </span>
           <font-awesome-icon v-on:click="checkAndAddCatch" class="fa-2xl icon-button"
                              icon="fa-regular fa-square-check"/>
         </div>
-        <div class="col-5">
-          <div class="input-group mb-3">
-            <span class="input-group-text" :class="{'input-filled': (newLocation.name!=='')}">
-            Asukoha nimetus
-            </span>
-            <input v-model="newLocation.name" class="form-control">
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text" :class="{'input-filled': (newLocation.name!=='')}">
-            Laius°
-            </span>
-            <input v-model="newLocation.latitude" class="form-control">
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text" :class="{'input-filled': (newLocation.name!=='')}">
-            Pikkus°
-            </span>
-            <input v-model="newLocation.longitude" class="form-control">
-          </div>
 
+        <div class="row">
+          <newLocation v-if="false"/>
         </div>
+
+
       </div>
 
 
@@ -76,12 +67,15 @@
 
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+import NewLocation from "@/views/NewLocation.vue";
 
 export default {
   name: "CatchesView",
-  components: {AlertSuccess, AlertDanger},
+  components: {NewLocation, AlertSuccess, AlertDanger},
   data: function () {
     return {
+      addLocation: false,
+
       catches: [
         {
           catchId: 0,
@@ -93,11 +87,6 @@ export default {
         }
       ],
 
-      newLocation: {
-        name: '',
-        latitude: '',
-        longitude: ''
-      },
 
       locations: [
         {
