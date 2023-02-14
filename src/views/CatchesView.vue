@@ -28,7 +28,7 @@
         </div>
 
         <div class="row">
-          <newLocation v-if="false"/>
+          <newLocation v-if="true"/>
         </div>
 
 

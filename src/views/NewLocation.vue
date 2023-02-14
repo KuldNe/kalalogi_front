@@ -4,7 +4,7 @@
             <span class="input-group-text" :class="{'input-filled': (newLocation.name!=='')}">
             Asukoha nimetus
             </span>
-      <input v-model="newLocation.name" class="form-control">
+      <input v-model="newLocation.locationName" class="form-control">
     </div>
     <div class="column input-group mb-3">
             <span class="input-group-text">
@@ -29,7 +29,7 @@ export default {
   data: function () {
     return {
       newLocation: {
-        name: '',
+        locationName: '',
         latitude: null,
         longitude: null
       },
