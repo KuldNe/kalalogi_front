@@ -2,7 +2,7 @@
 
   <div id="view" class="col-4 bg-dark just rounded-4" style="margin-top: 100px; margin-left: 30px; padding: 30px">
 
-    <AlertDanger :message="message"/>
+    <AlertDanger :message="messageDanger"/>
     <form class="px-4 py-3">
       <div class="mb-3">
         <label class="form-label">Kasutajanimi:</label>
@@ -14,13 +14,13 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Parool:</label>
-        <input v-model="password" type="text" class="form-control" placeholder="parool">
+        <input v-model="password" type="password" class="form-control" placeholder="parool">
       </div>
       <div class="mb-3">
         <label class="form-label">Kinnita parool:</label>
         <input v-model="confirmpassword" type="password" class="form-control" placeholder="kinnita parool">
       </div>
-      <button type="submit" class="btn btn-secondary">Loo kasutaja</button>
+      <button v-on:click="validateAndRegister" type="submit" class="btn btn-secondary">Loo kasutaja</button>
     </form>
 
   </div>
@@ -44,8 +44,8 @@ export default {
         message: '',
         errorCode: ''
       },
+      messageDanger: '',
 
-      message: '',
       username: '',
       email: '',
       password: '',
@@ -55,22 +55,22 @@ export default {
 
   methods: {
 
-    register: function () {
-      this.message = ''
-      if (this.username == '' || this.password =='') {
-        this.message = 'täida kõik väljad'
+    validateAndRegister: function () {
+      this.messageDanger = ''
+      if (this.username === '' || this.email === '' || this.password === '' || this.confirmpassword === '') {
+        this.messageDanger = 'Täida kõik väljad'
+      } else if (this.password !== this.confirmpassword) {
+        this.messageDanger = 'Parool ja kinnitusparool ei kattu'
       } else {
-        this.sendLoginRequest();
+        this.sendRegisterRequest();
       }
-
     },
 
-    sendLoginRequest: function () {
-      this.$http.get("/register", {
-            params: {
-              username: this.username,
-              password: this.password
-            }
+    sendRegisterRequest: function () {
+      this.$http.post("/register", {
+        username: this.username,
+        email: this.email,
+        password: this.password
           }
       ).then(response => {
         this.loginResponse = response.data
@@ -78,15 +78,16 @@ export default {
         sessionStorage.setItem('roleType', this.loginResponse.roleType)
         localStorage.setItem('lang', 'EST')
         this.$emit('emitLoginSuccessEvent')
-        this.$router.push({name: 'atmsRoute'})
       }).catch(error => {
         this.apiError = error.response.data
-        this.message = this.apiError.message
+        this.messageDanger = this.apiError.error
       })
     }
 
   }
+
 }
+
 </script>
 
 <style scoped>

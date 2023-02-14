@@ -17,7 +17,7 @@
         </div>
         <div class="col">
           <span>Lisa asukoht</span>
-          <font-awesome-icon v-on:click="checkAndAddCatch" class="fa-2xl icon-button"
+          <font-awesome-icon v-on:click="newLocationOn" class="fa-2xl icon-button"
                              icon="fa-regular fa-square-check"/>
 
         </div>
@@ -27,8 +27,8 @@
                              icon="fa-regular fa-square-check"/>
         </div>
 
-        <div class="row">
-          <newLocation v-if="false"/>
+        <div v-if="addLocationVisible" class="row">
+          <newLocation @emitAddLocationSuccess="newLocationOff"/>
         </div>
 
 
@@ -74,7 +74,7 @@ export default {
   components: {NewLocation, AlertSuccess, AlertDanger},
   data: function () {
     return {
-      addLocation: false,
+      addLocationVisible: false,
 
       catches: [
         {
@@ -156,6 +156,13 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+    },
+
+    newLocationOff: function () {
+      this.addLocationVisible = false
+    },
+    newLocationOn: function () {
+      this.addLocationVisible = true
     },
 
   },

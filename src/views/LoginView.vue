@@ -2,7 +2,7 @@
 
   <div id="view" class="col-4 bg-dark just rounded-4" style="margin-top: 100px; margin-left: 30px; padding: 30px">
 
-      <AlertDanger :message="message" />
+      <AlertDanger :message="messageDanger" />
       <form class="px-4 py-3">
         <div class="mb-3">
           <label class="form-label">Kasutajanimi</label>
@@ -40,7 +40,7 @@ export default {
         errorCode: ''
       },
 
-      message: '',
+      messageDanger: '',
 
       username: '',
       password: '',
@@ -50,7 +50,7 @@ export default {
   methods: {
 
     login: function () {
-      this.message = ''
+      this.messageDanger = ''
       if (this.username == '' || this.password =='') {
         // this.message = 'Täida kõik väljad'
       } else {
@@ -72,10 +72,9 @@ export default {
         sessionStorage.setItem('roleType', this.loginResponse.roleType)
         localStorage.setItem('lang', 'EST')
         this.$emit('emitLoginSuccessEvent')
-        // this.$router.push({name: 'homeRoute'})
       }).catch(error => {
         this.apiError = error.response.data
-        this.message = this.apiError.message
+        this.messageDanger = this.apiError.message
       })
     }
 
