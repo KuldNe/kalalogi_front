@@ -1,5 +1,7 @@
 <template>
   <div style="background-color: #2c3e50">
+    <alert-danger :message="messageDanger"/>
+    <AlertSuccess :message="messageSuccess"/>
     <div class="column input-group mb-3">
             <span class="input-group-text" :class="{'input-filled': (newLocation.name!=='')}">
             Asukoha nimetus
@@ -10,7 +12,7 @@
             <span class="input-group-text">
             Laius°
             </span>
-      <input v-model="newLocation.latitude" class="form-control">
+      <input v-model="newLocation.latitude" class="form-control" type="number">
     </div>
     <div class="column input-group mb-3">
             <span class="input-group-text">
@@ -24,8 +26,12 @@
   </div>
 </template>
 <script>
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+
 export default {
   name: 'newLocation',
+  components: {AlertSuccess, AlertDanger},
   data: function () {
     return {
       newLocation: {
@@ -33,18 +39,30 @@ export default {
         latitude: null,
         longitude: null
       },
+
+      messageDanger:'',
+      messageSuccess: '',
     }
   },
 
   methods: {
     addLocation: function () {
+      this.messageDanger = ''
+      this.messageSuccess= ''
+
       this.$http.post("/waterbodies", this.newLocation
       ).then(response => {
-        console.log(response.data)
+        this.messageSuccess='Asukoht edukalt lisatud!'
+        setTimeout(()=> {
+          this.$emit('emitAddLocationSuccess', false)
+          this.$router.go()
+        }, 1000)
       }).catch(error => {
-        console.log(error)
+        if(error.response.data.status===400){
+          this.messageDanger='Viga sisestamisel, kontrolli sisestatud andmete vormingut'
+        }
       })
-    },
+    }
 
   }
 }
