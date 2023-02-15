@@ -35,7 +35,10 @@
         <div class="col-4">
           Kommentaar: {{ fish.comment }}
         </div>
-        <div class="col">
+        <div v-if="activeUsername===fish.userName"  class="col">
+          EDIT
+        </div>
+        <div v-else class="col">
           {{ fish.userName }}
         </div>
       </div>
@@ -49,6 +52,13 @@ export default {
 
   props: {
     fishies: []
+  },
+
+  data: function () {
+    return {
+      activeUsername: sessionStorage.getItem('userName')
+    }
   }
+
 }
 </script>

@@ -32,6 +32,7 @@ export default {
 
       loginResponse: {
         userId: 0,
+        userName: '',
         roleType: ''
       },
 
@@ -69,7 +70,9 @@ export default {
       ).then(response => {
         this.loginResponse = response.data
         sessionStorage.setItem('userId', this.loginResponse.userId)
+        sessionStorage.setItem('userName', this.loginResponse.userName)
         sessionStorage.setItem('roleType', this.loginResponse.roleType)
+
         localStorage.setItem('lang', 'EST')
         this.$emit('emitLoginSuccessEvent')
       }).catch(error => {

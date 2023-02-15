@@ -5,6 +5,7 @@ import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import FishView from "@/views/FishView.vue";
 import CatchesView from "@/views/CatchesView.vue";
+import UserFishView from "@/views/UserFishView.vue";
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,12 @@ const routes = [
     name: 'loginRoute',
     component: LoginView
   },
+  {
+    path: '/userfish',
+    name: 'userFishRoute',
+    component: UserFishView
+  },
+
   {
     path: '/catches',
     name: 'catchesRoute',

@@ -16,12 +16,16 @@
             <button v-if="!isUser && !isAdmin" type="button" class="btn btn-secondary btn-sm">
               <router-link to="/login">Logi sisse/ Registreeru</router-link>
             </button>
-            <button v-if="isUser || isAdmin" v-on:click="logout" type="button" class="btn btn-secondary btn-sm">
-              Logi välja
+            <button v-if="isUser" type="button" class="btn btn-secondary btn-sm">
+              <router-link to="/userfish">Minu kalad</router-link>
             </button>
             <button v-if="isUser" type="button" class="btn btn-secondary btn-sm">
               <router-link to="/catches">Minu püügid</router-link>
             </button>
+            <button v-if="isUser || isAdmin" v-on:click="logout" type="button" class="btn btn-secondary btn-sm">
+              Logi välja
+            </button>
+
           </div>
 
 
@@ -121,9 +125,6 @@ export default {
           })
     },
 
-    test: function (locationId) {
-      alert((locationId))
-    },
 
     checkIfFishviewAndReload: function () {
       alert('routerview change')
@@ -142,6 +143,7 @@ export default {
   beforeMount() {
     this.updateUserAccess()
     this.getAllLocations()
+    this.checkIfFishview()
   },
   watch: {
     $route () {
