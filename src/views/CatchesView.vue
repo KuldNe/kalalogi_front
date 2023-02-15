@@ -67,7 +67,7 @@
 
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
-import NewLocation from "@/views/NewLocation.vue";
+import NewLocation from "@/components/NewLocation.vue";
 
 export default {
   name: "CatchesView",
