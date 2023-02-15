@@ -2,13 +2,12 @@
   <div>
     <fish-details :fishies="fishies"/>
   </div>
-
-
 </template>
+
+
 
 <script>
 import FishDetails from "@/components/FishDetails.vue";
-
 
 export default {
   name: "UserFishView",
@@ -17,14 +16,16 @@ export default {
   data: function () {
     return {
       fishies: [],
-      userId: sessionStorage.getItem(userId),
-      catchId: 0,
+      userId: sessionStorage.getItem('userId'),
+      catchId: 0
+      locationId: this.$route.query.locationId,
     }
   },
+
   methods: {
 
     getFishies: function () {
-      if (true) {
+      if(false){
         this.getUserFish()
       } else {
         this.getCatchFish()
@@ -34,7 +35,7 @@ export default {
     getUserFish: function () {
       this.$http.get("/user/fish", {
             params: {
-              userId: this.userId,
+              userId: this.userId
             }
           }
       ).then(response => {
@@ -56,10 +57,16 @@ export default {
         console.log(error)
       })
     },
+  },
 
-
-
-
+  beforeMount() {
+    this.getFishies()
   }
+
+
 }
 </script>
+
+<style scoped>
+
+</style>

@@ -14,11 +14,9 @@
         <font-awesome-icon v-on:click="toggleShowEdit" class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
       </div>
       <div class="col-2">
-        <span>Vaata kalu      </span>
+        <span>Vaata saaki</span>
         <font-awesome-icon class="fa-2xl" icon="fa-solid fa-fish-fins" />
-
       </div>
-
       <div class="col-2">
         <span>Lisa kala      </span>
         <router-link :to="{name: 'fishRoute', query: {catchId: aCatch.catchId}}">
@@ -27,7 +25,6 @@
       </div>
       <AlertDanger :message="messageDanger"/>
       <AlertSuccess :message="messageSuccess"/>
-
       <EditCatch :check-and-edit-catch="checkAndEditCatch" :edit-date="editDate" :edit-location-id="editLocationId"
                     :locations="locations" :show-edit="showEdit"/>
 
@@ -35,6 +32,7 @@
   </div>
 </template>
 <script>
+
 import AlertDanger from "@/components/alert/AlertDanger.vue";
 import AlertSuccess from "@/components/alert/AlertSuccess.vue";
 import EditCatch from "@/components/EditCatch.vue";
@@ -49,39 +47,38 @@ export default {
   data: function () {
     return {
       showEdit: false,
+
+
       editDate: '',
-      editLocationId: 0,
+      editLocationId: '',
       messageDanger: '',
       messageSuccess: '',
     }
   },
-
 
   methods: {
     toggleShowEdit: function () {
       this.showEdit = !this.showEdit
     },
 
-
     checkAndEditCatch: function () {
       if (this.editDate !== '' && this.editLocationId !== 0) {
         this.editCatch()
       } else {
-        this.messageDanger = 'Tee paremini!'
+        this.messageDanger= 'Täida kõik väljad'
       }
     },
-
 
     editCatch: function () {
       this.$http.put("/catch",
           {
             date: this.editDate,
-            userId: sessionStorage.getItem('userId'),
+            userId: sessionStorage.getItem("userId"),
             waterbodyId: this.editLocationId
           },
           {
             params: {
-              catchId: this.aCatch.catchId,
+              catchId: this.aCatch.catchId
             }
           }
       ).then(response => {
@@ -96,12 +93,12 @@ export default {
       this.editDate = this.aCatch.catchDate
       this.editLocationId = this.aCatch.waterbodyId
     },
-
   },
 
   beforeMount() {
     this.prefillEditCatch()
   }
+
 
 }
 </script>

@@ -25,6 +25,7 @@
             <button v-if="isUser || isAdmin" v-on:click="logout" type="button" class="btn btn-secondary btn-sm">
               Logi välja
             </button>
+
           </div>
 
 
@@ -124,9 +125,6 @@ export default {
           })
     },
 
-    test: function (locationId) {
-      alert((locationId))
-    },
 
     checkIfFishviewAndReload: function () {
       alert('routerview change')
@@ -145,6 +143,7 @@ export default {
   beforeMount() {
     this.updateUserAccess()
     this.getAllLocations()
+    this.checkIfFishview()
   },
   watch: {
     $route () {

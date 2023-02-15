@@ -25,6 +25,7 @@ const routes = [
     name: 'userFishRoute',
     component: UserFishView
   },
+
   {
     path: '/catches',
     name: 'catchesRoute',
