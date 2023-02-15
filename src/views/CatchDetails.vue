@@ -32,7 +32,7 @@
         <div class="col-5">
           <span>Püügikoht</span>
           <select v-model="editLocationId" class="form-select" aria-label="Default select example">
-            <option v-for="location in locations" :value="location.editLocationId">{{ location.locationName }}</option>
+            <option v-for="location in locations" :value="location.locationId">{{ location.locationName }}</option>
           </select>
         </div>
 
@@ -52,13 +52,12 @@ export default {
   name: 'CatchDetails',
   components: {AlertSuccess, AlertDanger},
   props: {
-    aCatch: {}
+    aCatch: {},
+    locations: []
   },
   data: function () {
     return {
       showEdit: false,
-
-      locations: [],
       editDate: '',
       editLocationId: 0,
       messageDanger: '',
@@ -76,7 +75,7 @@ export default {
           {
             date: this.editDate,
             userId: sessionStorage.getItem('userId'),
-            waterbodyId: this.editLocationId,
+            waterbodyId: this.editLocationId
           },
           {
             params: {
@@ -89,21 +88,6 @@ export default {
         console.log(error)
       })
     },
-
-
-    getAllLocations: function () {
-      this.$http.get("/waterbodies")
-          .then(response => {
-            this.locations = response.data
-          })
-          .catch(error => {
-            console.log(error)
-          })
-    },
-  },
-
-  beforeMount() {
-    this.getAllLocations()
   }
 }
 </script>

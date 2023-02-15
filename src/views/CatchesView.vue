@@ -5,7 +5,7 @@
     </div>
 
     <div v-for="aCatch in catches">
-    <CatchDetails :aCatch="aCatch" />
+    <CatchDetails :locations= "locations" :aCatch="aCatch" />
     </div>
 
   </div>
@@ -65,10 +65,21 @@ export default {
       })
     },
 
+    getAllLocations: function () {
+      this.$http.get("/waterbodies")
+          .then(response => {
+            this.locations = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
+
 
   },
   beforeMount() {
     this.getUserCatches()
+    this.getAllLocations()
   }
 
 }
