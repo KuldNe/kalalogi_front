@@ -17,15 +17,15 @@ export default {
     return {
       fishies: [],
       userId: sessionStorage.getItem('userId'),
-      catchId: 0
-      locationId: this.$route.query.locationId,
+      catchId: this.$route.query.catchId,
+
     }
   },
 
   methods: {
 
     getFishies: function () {
-      if(false){
+      if(this.catchId==null){
         this.getUserFish()
       } else {
         this.getCatchFish()
@@ -52,7 +52,7 @@ export default {
             }
           }
       ).then(response => {
-        console.log(response.data)
+        this.fishies = response.data
       }).catch(error => {
         console.log(error)
       })
