@@ -35,7 +35,10 @@
         <div class="col-4">
           Kommentaar: {{ fish.comment }}
         </div>
-        <div class="col">
+        <div v-if="activeUsername == fish.userName" class="col">
+          EDIT
+        </div>
+        <div v-else class="col">
           {{ fish.userName }}
         </div>
       </div>
@@ -44,11 +47,21 @@
 </template>
 
 <script>
+import EditCatch from "@/components/EditCatch.vue";
+
 export default {
   name: 'FishDetails',
+  components: {EditCatch},
 
   props: {
-    fishies: []
+    fishies: [],
+
+  },
+
+  data: function () {
+    return {
+      activeUsername: sessionStorage.getItem('userName')
+    }
   }
 }
 </script>
