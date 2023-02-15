@@ -48,19 +48,7 @@ export default {
   name: 'FishDetails',
 
   props: {
-    fishies: [
-      {
-        speciesName: '',
-        length: 0,
-        weight: 0,
-        date: '',
-        locationName: '',
-        released: false,
-        comment: '',
-        userName: '',
-        picture: ''
-      }
-    ]
+    fishies: []
   }
 }
 </script>

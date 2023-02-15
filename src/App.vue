@@ -19,7 +19,7 @@
             <button v-if="isUser || isAdmin" v-on:click="logout" type="button" class="btn btn-secondary btn-sm">
               Logi välja
             </button>
-            <button v-if="isUser"  type="button" class="btn btn-secondary btn-sm">
+            <button v-if="isUser" type="button" class="btn btn-secondary btn-sm">
               <router-link to="/catches">Minu püügid</router-link>
             </button>
           </div>
@@ -27,45 +27,49 @@
 
           <hr>
 
-          <span class="fs-6" >Filtreeri:</span>
+          <div v-if="isHomeView" class="row">
+            <span class="fs-6">Filtreeri:</span>
 
-          <div class="btn-group">
-            <button class="btn btn-secondary btn-sm" type="button">
-              Püügikoht
-            </button>
-            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="visually-hidden">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">peipsi järv</a></li>
-              <li><a class="dropdown-item" href="#">emajõgi</a></li>
-              <li><a class="dropdown-item" href="#">lomp</a></li>
-            </ul>
-          </div>
+            <div class="btn-group">
+              <button class="btn btn-secondary btn-sm" type="button">
+                Püügikoht
+              </button>
+              <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu">
+                <li v-for="location in locations" class="dropdown-item" v-on:click="test(location.locationId)">
+                  {{ location.locationName }}
+                </li>
+                <li><a class="dropdown-item" href="#">emajõgi</a></li>
+                <li><a class="dropdown-item" href="#">lomp</a></li>
+              </ul>
+            </div>
 
-          <br>
+            <br>
 
-          <div class="btn-group">
-            <button class="btn btn-secondary btn-sm" type="button">
-              Kalaliik
-            </button>
-            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="visually-hidden">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">haug</a></li>
-              <li><a class="dropdown-item" href="#">latikas</a></li>
-              <li><a class="dropdown-item" href="#">lest</a></li>
-            </ul>
+            <div class="btn-group">
+              <button class="btn btn-secondary btn-sm" type="button" style="width: 80%">
+                Kalaliik
+              </button>
+              <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">haug</a></li>
+                <li><a class="dropdown-item" href="#">latikas</a></li>
+                <li><a class="dropdown-item" href="#">lest</a></li>
+              </ul>
+            </div>
           </div>
 
         </div>
       </nav>
     </div>
     <div id="main">
-      <router-view @emitLoginSuccessEvent="updateUserAndReload"/>
+      <router-view v-on:load="checkIfFishviewAndReload" @emitLoginSuccessEvent="updateUserAndReload"/>
     </div>
 
   </div>
@@ -77,28 +81,72 @@ export default {
   data: function () {
     return {
       isUser: false,
-      isAdmin: false
+      isAdmin: false,
+      isHomeView: true,
+
+      locations: [
+        {
+          locationId: 0,
+          locationName: '',
+          latitude: '',
+          longitude: ''
+        }
+      ]
     }
   },
 
   methods: {
     logout: function () {
       sessionStorage.clear()
-      this.roleType= sessionStorage.getItem("roleType")
+      this.roleType = sessionStorage.getItem("roleType")
+      this.$router.push({name: 'homeRoute'})
       this.$router.go()
     },
     updateUserAccess: function () {
-      sessionStorage.getItem("roleType") === 'user' ? this.isUser=true : this.isUser=false
-      sessionStorage.getItem("roleType") === 'admin' ? this.isAdmin=true : this.isAdmin=false
+      sessionStorage.getItem("roleType") === 'user' ? this.isUser = true : this.isUser = false
+      sessionStorage.getItem("roleType") === 'admin' ? this.isAdmin = true : this.isAdmin = false
     },
     updateUserAndReload: function () {
       this.updateUserAccess()
       this.$router.push({name: 'homeRoute'})
+      // this.$router.go()
+    },
+    getAllLocations: function () {
+      this.$http.get("/waterbodies")
+          .then(response => {
+            this.locations = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
+
+    test: function (locationId) {
+      alert((locationId))
+    },
+
+    checkIfFishviewAndReload: function () {
+      alert('routerview change')
+      this.checkIfFishview()
       this.$router.go()
     },
+
+    checkIfFishview: function () {
+      if (this.$route.name === 'homeRoute') {
+        this.isHomeView = true
+      } else {
+        this.isHomeView = false
+      }
+    }
   },
   beforeMount() {
     this.updateUserAccess()
+    this.getAllLocations()
+  },
+  watch: {
+    $route () {
+      this.checkIfFishview()
+    }
   }
 }
 </script>
