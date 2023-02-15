@@ -21,22 +21,23 @@
       </div>
       <AlertDanger :message="messageDanger"/>
       <AlertSuccess :message="messageSuccess"/>
+
       <div v-if="showEdit" class="align-items-center row text-white bg-dark"
            style="margin-top: 10px; margin-left: 10px; padding: 10px">
         <div class="col-2">
           <span>Kuupäev</span>
-          <input v-model="date" id="startDate" class="form-control" type="date"/>
+          <input v-model="editDate" id="startDate" class="form-control" type="date"/>
         </div>
 
         <div class="col-5">
           <span>Püügikoht</span>
-          <select v-model="locationId" class="form-select" aria-label="Default select example">
-            <option v-for="location in locations" :value="location.locationId">{{ location.locationName}}</option>
+          <select v-model="editLocationId" class="form-select" aria-label="Default select example">
+            <option v-for="location in locations" :value="location.editLocationId">{{ location.locationName }}</option>
           </select>
         </div>
 
         <div class="col-2">
-          <button v-on:click="editCatch" type="button" class="btn btn-light" style="margin-top: 21px" >Salvesta</button>
+          <button v-on:click="editCatch" type="button" class="btn btn-light" style="margin-top: 21px">Salvesta</button>
         </div>
       </div>
 
@@ -44,8 +45,12 @@
   </div>
 </template>
 <script>
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+
 export default {
   name: 'CatchDetails',
+  components: {AlertSuccess, AlertDanger},
   props: {
     aCatch: {}
   },
@@ -54,8 +59,8 @@ export default {
       showEdit: false,
 
       locations: [],
-      date: '',
-      locationId: 0,
+      editDate: '',
+      editLocationId: 0,
       messageDanger: '',
       messageSuccess: '',
     }
@@ -66,18 +71,25 @@ export default {
       this.showEdit = !this.showEdit
     },
 
-      editCatch: function () {
-        this.$http.put("/catch", {
-          date: this.date,
-          waterbodyId: this.locationId
+    editCatch: function () {
+      this.$http.put("/catch",
+          {
+            date: this.editDate,
+            userId: sessionStorage.getItem('userId'),
+            waterbodyId: this.editLocationId,
+          },
+          {
+            params: {
+              catchId: this.aCatch.catchId,
             }
-        ).then(response => {
-          this.messageSuccess = 'Püük muudetud'
-          this.timeoutAndReloadPage(1000)
-        }).catch(error => {
-          console.log(error)
-        })
+          }
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
     },
+
 
     getAllLocations: function () {
       this.$http.get("/waterbodies")
