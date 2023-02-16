@@ -133,7 +133,7 @@ export default {
     },
 
     checkIfFishview: function () {
-      if (this.$route.name === 'homeRoute') {
+      if (this.$route.name === 'homeRoute' || this.$route.name ==='userFishRoute') {
         this.isHomeView = true
       } else {
         this.isHomeView = false
