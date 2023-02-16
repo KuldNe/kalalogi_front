@@ -36,17 +36,26 @@
         <div class="col-4">
           Kommentaar: {{ fish.comment }}
         </div>
-        <div v-if="activeUsername===fish.userName" class="col">
+        <div v-if="activeUsername===fish.userName" class="col-2">
+          <div class="row">
           <div v-show="!showEdit" style="color:#198754">{{fish.userName}}</div>
-          <div v-show="showEdit" class="col">
+          <div v-show="showEdit" class="col-4">
             <span>Muuda      </span>
             <router-link :to="{name: 'fishRoute', query: {fishId: fish.fishId }}">
               <font-awesome-icon class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
             </router-link>
           </div>
+          <div v-show="showEdit" class="col-2">
+            <span>Kustuta      </span>
+            <font-awesome-icon v-on:click="askDeleteFish" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" style="color: crimson" />
+          </div>
+          </div>
         </div>
         <div v-else class="col">
           {{ fish.userName }}
+        </div>
+        <div>
+          <AlertSuccess :message="messageSuccess"/>
         </div>
       </div>
     </div>
@@ -54,8 +63,12 @@
 </template>
 
 <script>
+
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+
 export default {
   name: 'FishDetails',
+  components: {AlertSuccess},
 
   props: {
     fish: {}
@@ -64,9 +77,39 @@ export default {
   data: function () {
     return {
       activeUsername: sessionStorage.getItem('userName'),
-      showEdit: false
+      showEdit: false,
+      fishId: this.$route.query.fishId,
+
+      messageSuccess: '',
     }
+  },
+
+  methods: {
+
+    askDeleteFish: function () {
+      if(confirm('Oled sa kindel, et soovid kala kustutada?')) {
+        this.deleteFish()
+      } else {
+      }
+    },
+
+    deleteFish: function () {
+      this.$http.delete("/fish", {
+            params: {
+              fishId: this.fish.fishId
+            }
+          }
+      ).then(response => {
+        this.messageSuccess= 'Kala kustutatud!'
+        setTimeout(() => {
+          this.$router.go()
+        }, 2000)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
   }
+
 
 }
 </script>

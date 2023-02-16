@@ -88,15 +88,15 @@ export default {
       fishId: this.$route.query.fishId,
 
       fish: {
-        catchId:1,
-        comment:"kuradi kilu, lendas tagasi",
-        date:"2023-02-02",
-        isPublic:true,
-        length:10,
-        picture:"",
-        released:true,
-        speciesId:7,
-        weight:70
+        catchId: this.$route.query.catchId,
+        comment: "",
+        date: "",
+        isPublic: true,
+        length: 0,
+        picture: "",
+        released:false,
+        speciesId:0,
+        weight:0
 
       },
 

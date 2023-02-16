@@ -14,6 +14,10 @@
         <span>Muuda      </span>
         <font-awesome-icon v-on:click="toggleShowEdit" class="fa-2xl icon-button" icon="fa-regular fa-pen-to-square"/>
       </div>
+      <div v-show="showButtons" class ="col-2">
+        <span>Kustuta    </span>
+        <font-awesome-icon v-on:click="askDeleteCatch" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" style="color: crimson" />
+      </div>
       <div v-show="showButtons" class="col-2">
         <span>Vaata saaki</span>
         <router-link :to="{name: 'userFishRoute', query: {catchId: aCatch.catchId}}">
@@ -26,11 +30,6 @@
           <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
         </router-link>
       </div>
-      <div v-show="showButtons" class ="col-2">
-        <span>Kustuta    </span>
-        <font-awesome-icon v-on:click="askDeleteCatch" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" />
-      </div>
-
 
       <AlertDanger :message="messageDanger"/>
       <AlertSuccess :message="messageSuccess"/>
@@ -118,7 +117,7 @@ export default {
             }
           }
       ).then(response => {
-        this.messageDanger= 'Püük kustutatud!'
+        this.messageSuccess= 'Püük kustutatud!'
         setTimeout(() => {
           this.$router.go()
         }, 2000)

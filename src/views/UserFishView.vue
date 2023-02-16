@@ -58,7 +58,10 @@ export default {
         console.log(error)
       })
     },
+
+
   },
+
 
   beforeMount() {
     this.getFishies()
@@ -67,7 +70,3 @@ export default {
 
 }
 </script>
-
-<style scoped>
-
-</style>
