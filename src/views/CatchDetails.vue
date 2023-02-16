@@ -6,7 +6,7 @@
         <span>Kuupäev: {{ aCatch.catchDate }}</span>
       </div>
 
-      <div class="col-4">
+      <div class="col-2">
         <span>Püügikoht: {{ aCatch.waterbodyName }}</span>
       </div>
 
@@ -26,6 +26,12 @@
           <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
         </router-link>
       </div>
+      <div class ="col-2">
+        <span>Kustuta    </span>
+        <font-awesome-icon v-on:click="askDeleteCatch" class="fa-2xl" icon="fa-regular fa-trash-can" />
+      </div>
+
+
       <AlertDanger :message="messageDanger"/>
       <AlertSuccess :message="messageSuccess"/>
       <EditCatch :check-and-edit-catch="checkAndEditCatch" :edit-date="editDate" :edit-location-id="editLocationId"
@@ -96,6 +102,32 @@ export default {
       this.editDate = this.aCatch.catchDate
       this.editLocationId = this.aCatch.waterbodyId
     },
+
+    askDeleteCatch: function () {
+      if(confirm('Oled sa kindel, et soovid püügi kustutada?')) {
+        this.deleteCatch()
+      } else {
+
+      }
+    },
+
+    deleteCatch: function () {
+      this.$http.delete("/catch", {
+            params: {
+              catchId: this.aCatch.catchId
+            }
+          }
+      ).then(response => {
+        this.messageDanger= 'Püük kustutatud!'
+        setTimeout(() => {
+          this.$router.go()
+        }, 2000)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+
   },
 
   beforeMount() {
