@@ -80,6 +80,8 @@
 </template>
 
 <script>
+
+
 export default {
   name: 'AppView',
   data: function () {
@@ -150,6 +152,7 @@ export default {
       this.checkIfFishview()
     }
   }
+
 }
 </script>
 

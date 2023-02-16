@@ -5,7 +5,6 @@
 </template>
 
 
-
 <script>
 import FishDetails from "@/components/FishDetails.vue";
 

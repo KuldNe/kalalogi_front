@@ -36,7 +36,9 @@
           Kommentaar: {{ fish.comment }}
         </div>
         <div v-if="activeUsername===fish.userName"  class="col">
+          <router-link :to="{name: 'fishRoute', query: {fishId: fish.fishId}}">
           EDIT
+          </router-link>
         </div>
         <div v-else class="col">
           {{ fish.userName }}
@@ -59,6 +61,9 @@ export default {
       activeUsername: sessionStorage.getItem('userName')
     }
   }
+
+
+
 
 }
 </script>

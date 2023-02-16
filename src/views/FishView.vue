@@ -23,7 +23,7 @@
         <div class="input-group mb-3 col-2">
           <span class="input-group-text">kaal</span>
           <input v-model="fish.weight" type="number" min="0" class="form-control">
-          <span class="input-group-text">kg</span>
+          <span class="input-group-text">g</span>
         </div>
 
         <br>
@@ -116,6 +116,19 @@ export default {
         this.locationName = response.data.waterbodyName
         this.fish.date = response.data.catchDate
 
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+    getFish: function () {
+      this.$http.get("/fish", {
+            params: {
+              fishId: this.$route.query.fishId,
+            }
+          }
+      ).then(response => {
+        console.log(response.data)
       }).catch(error => {
         console.log(error)
       })
