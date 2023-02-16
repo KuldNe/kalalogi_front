@@ -1,9 +1,10 @@
 <template>
   <div>
-    <fish-details :fishies="fishies"/>
+    <div v-for="fish in fishies">
+      <fish-details :fish="fish"/>
+    </div>
   </div>
 </template>
-
 
 
 <script>
@@ -25,7 +26,7 @@ export default {
   methods: {
 
     getFishies: function () {
-      if(this.catchId==null){
+      if (this.catchId == null) {
         this.getUserFish()
       } else {
         this.getCatchFish()

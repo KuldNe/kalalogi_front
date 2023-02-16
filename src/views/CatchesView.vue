@@ -1,13 +1,15 @@
 <template>
   <div>
     <div class="container m-3 p-3 ">
-      <NewCatch :user-id="userId" />
+      <NewCatch :user-id="userId"/>
     </div>
 
-    <div v-for="aCatch in catches" :key="aCatch.catchId">
-    <CatchDetails :locations="locations" :aCatch="aCatch" />
-    </div>
 
+    <div class="container m-3 p-3">
+      <div v-for="aCatch in catches" :key="aCatch.catchId">
+        <CatchDetails :locations="locations" :aCatch="aCatch"/>
+      </div>
+    </div>
   </div>
 </template>
 

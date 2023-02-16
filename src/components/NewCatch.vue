@@ -15,9 +15,12 @@
         </select>
       </div>
       <div class="col">
-        <span>Lisa asukoht</span>
-        <font-awesome-icon v-on:click="newLocationToggle" class="fa-2xl icon-button"
-                           icon="fa-regular fa-square-check"/>
+        <span>Lisa asukoht  </span>
+
+        <font-awesome-icon v-if="addLocationVisible" v-on:click="newLocationToggle" class="fa-xl icon-button"
+                           icon="fa-solid fa-angles-up"/>
+        <font-awesome-icon v-else v-on:click="newLocationToggle" class="fa-xl icon-button"
+                           icon="fa-solid fa-angles-down"/>
 
       </div>
       <div class="col">

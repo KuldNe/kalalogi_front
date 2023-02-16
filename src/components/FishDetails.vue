@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div v-for="fish in fishies" class="container" style="margin-top: 8px; margin-left: 8px; padding: 8px">
-      <div class="align-items-center row text-white bg-dark">
+    <div class="container" style="margin-top: 8px; margin-left: 8px; padding: 8px">
+      <div @mouseover="showEdit=true" @mouseout="showEdit=false" class="align-items-center row text-white bg-dark">
         <div class="col">
-          <img v-if="fish.picture==='' || fish.picture==null" src="../assets/images.png" class="img-thumbnail" width="200" height="200" alt="Kalapilt">
+          <img v-if="fish.picture==='' || fish.picture==null" src="../assets/images.png" class="img-thumbnail"
+               width="200" height="200" alt="Kalapilt">
           <img v-else :src="fish.picture" class="img-thumbnail" width="200" height="200" alt="Kalapilt">
         </div>
         <div class="col">
@@ -36,9 +37,13 @@
           Kommentaar: {{ fish.comment }}
         </div>
         <div v-if="activeUsername===fish.userName" class="col">
-          <router-link :to="{name: 'fishRoute', query: {fishId: fish.fishId }}">
-            EDIT
-          </router-link>
+          <div v-show="!showEdit" style="color:#198754">{{fish.userName}}</div>
+          <div v-show="showEdit" class="col">
+            <span>Muuda      </span>
+            <router-link :to="{name: 'fishRoute', query: {fishId: fish.fishId }}">
+              <font-awesome-icon class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
+            </router-link>
+          </div>
         </div>
         <div v-else class="col">
           {{ fish.userName }}
@@ -53,12 +58,13 @@ export default {
   name: 'FishDetails',
 
   props: {
-    fishies: []
+    fish: {}
   },
 
   data: function () {
     return {
-      activeUsername: sessionStorage.getItem('userName')
+      activeUsername: sessionStorage.getItem('userName'),
+      showEdit: false
     }
   }
 

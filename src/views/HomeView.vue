@@ -1,8 +1,8 @@
 <template>
   <div>
-
-    <fish-details :fishies="fishies" />
-
+    <div v-for="fish in fishies">
+    <fish-details :fish="fish" />
+    </div>
   </div>
 </template>
 
