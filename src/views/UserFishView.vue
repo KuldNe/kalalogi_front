@@ -5,6 +5,7 @@
 </template>
 
 
+
 <script>
 import FishDetails from "@/components/FishDetails.vue";
 
@@ -17,7 +18,7 @@ export default {
       fishies: [],
       userId: sessionStorage.getItem('userId'),
       catchId: this.$route.query.catchId,
-      locationId: this.$route.query.locationId,
+
     }
   },
 
