@@ -26,9 +26,9 @@
           <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
         </router-link>
       </div>
-      <div class ="col-2">
+      <div v-show="showButtons" class ="col-2">
         <span>Kustuta    </span>
-        <font-awesome-icon v-on:click="askDeleteCatch" class="fa-2xl" icon="fa-regular fa-trash-can" />
+        <font-awesome-icon v-on:click="askDeleteCatch" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" />
       </div>
 
 
