@@ -15,7 +15,9 @@
       </div>
       <div class="col-2">
         <span>Vaata saaki</span>
+        <router-link :to="{name: 'userFishRoute', query: {catchId: aCatch.catchId}}">
         <font-awesome-icon class="fa-2xl" icon="fa-solid fa-fish-fins" />
+        </router-link>
       </div>
       <div class="col-2">
         <span>Lisa kala      </span>

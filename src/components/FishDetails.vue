@@ -35,8 +35,10 @@
         <div class="col-4">
           Kommentaar: {{ fish.comment }}
         </div>
-        <div v-if="activeUsername===fish.userName"  class="col">
-          EDIT
+        <div v-if="activeUsername===fish.userName" class="col">
+          <router-link :to="{name: 'fishRoute', query: {fishId: fish.fishId }}">
+            EDIT
+          </router-link>
         </div>
         <div v-else class="col">
           {{ fish.userName }}

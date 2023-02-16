@@ -4,7 +4,7 @@
       <NewCatch :user-id="userId" />
     </div>
 
-    <div v-for="aCatch in catches">
+    <div v-for="aCatch in catches" :key="aCatch.catchId">
     <CatchDetails :locations="locations" :aCatch="aCatch" />
     </div>
 

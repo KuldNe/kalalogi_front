@@ -1,62 +1,67 @@
 <template>
-<div>
   <div>
+    <div>
 
-    <div id="view" class="col-5 bg-dark just rounded-2" style="margin-top: 100px; margin-left: 30px; padding: 30px">
-      <AlertSuccess :message="messageSuccess" />
-      <AlertDanger :message="messageWarning"/>
-      <form class="px-4 py-3">
-        <span>Püügikoht: {{this.locationName}}</span>
-        <br>
-        <span>{{this.fish.date}}</span>
-        <br>
-        <span>Kalaliik</span>
-        <select v-model="fish.speciesId" class="form-select" aria-label="Default select example">
-          <option v-for="specie in species" :value="specie.speciesId">{{ specie.speciesName }}</option>
-        </select>
-        <br>
-        <div class="input-group mb-3 col-2">
-          <span class="input-group-text">pikkus</span>
-          <input v-model="fish.length" type="number" min="0" class="form-control">
-          <span class="input-group-text">cm</span>
-        </div>
-        <div class="input-group mb-3 col-2">
-          <span class="input-group-text">kaal</span>
-          <input v-model="fish.weight" type="number" min="0" class="form-control">
-          <span class="input-group-text">kg</span>
-        </div>
+      <div id="view" class="col-5 bg-dark just rounded-2" style="margin-top: 100px; margin-left: 30px; padding: 30px">
+        <AlertSuccess :message="messageSuccess"/>
+        <AlertDanger :message="messageWarning"/>
+        <form class="px-4 py-3">
+          <span>Püügikoht: {{ this.locationName }}</span>
+          <br>
+          <span>{{ this.fish.date }}</span>
+          <br>
+          <span>Kalaliik</span>
+          <select v-model="fish.speciesId" class="form-select" aria-label="Default select example">
+            <option v-for="specie in species" :value="specie.speciesId">{{ specie.speciesName }}</option>
+          </select>
+          <br>
+          <div class="input-group mb-3 col-2">
+            <span class="input-group-text">pikkus</span>
+            <input v-model="fish.length" type="number" min="0" class="form-control">
+            <span class="input-group-text">cm</span>
+          </div>
+          <div class="input-group mb-3 col-2">
+            <span class="input-group-text">kaal</span>
+            <input v-model="fish.weight" type="number" min="0" class="form-control">
+            <span class="input-group-text">kg</span>
+          </div>
 
-        <br>
-        <div class="input-group">
-          <span class="input-group-text">Kommentaar</span>
-          <textarea class="form-control" aria-label="With textarea"></textarea>
-        </div>
-        <br>
-        <div>
-          <span>Vabastatud    </span>
-          <input v-model="fish.released" class="form-check-input" type="checkbox">
-          <label class="form-check-label">
-          </label>
-        </div>
-        <div>
-          <span>Kuva avalikult    </span>
-          <input v-model="fish.isPublic" class="form-check-input" type="checkbox">
-          <label class="form-check-label">
-          </label>
-        </div>
-      </form>
+          <br>
+          <div class="input-group">
+            <span class="input-group-text">Kommentaar</span>
+            <textarea v-model="fish.comment" class="form-control" aria-label="With textarea"></textarea>
+          </div>
+          <br>
+          <div>
+            <span>Vabastatud    </span>
+            <input v-model="fish.released" class="form-check-input" type="checkbox">
+            <label class="form-check-label">
+            </label>
+          </div>
+          <div>
+            <span>Kuva avalikult    </span>
+            <input v-model="fish.isPublic" class="form-check-input" type="checkbox">
+            <label class="form-check-label">
+            </label>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-  <div id="view" class="col-5  bg-dark just rounded-2" style="margin-top: 100px; margin-left: 30px; padding: 30px">
-    <span>Lisa pilt: </span>
-    <image-input @emitBase64Event="emitBase64"/>
-  </div>
-  <br>
-<div class="justify-content-end col-10">
-  <button v-on:click="addFish" type="button" class="btn btn-dark">Salvesta</button>
-</div>
+    <div id="view" class="col-5  bg-dark just rounded-2" style="margin-top: 100px; margin-left: 30px; padding: 30px">
+      <span>Lisa pilt: </span>
+      <image-input @emitBase64Event="emitBase64"/>
+    </div>
+    <br>
+    <div v-if="isEdit" class="justify-content-end col-10">
+      <button v-on:click="editFish" type="button" class="btn btn-dark">Muuda kala</button>
+    </div>
 
-</div>
+    <div v-else class="justify-content-end col-10">
+      <button v-on:click="addFish" type="button" class="btn btn-dark">Lisa kala</button>
+    </div>
+
+
+  </div>
 </template>
 
 <script>
@@ -70,6 +75,8 @@ export default {
   components: {AlertSuccess, ImageInput, AlertDanger},
   data: function () {
     return {
+      isEdit: null,
+
       species: [
         {
           speciesId: 0,
@@ -78,16 +85,19 @@ export default {
       ],
 
       locationName: '',
+      fishId: this.$route.query.fishId,
 
       fish: {
-        date: '',
-        catchId: this.$route.query.catchId,
-        speciesId: 0,
-        length: 0,
-        weight: 0,
-        released: false,
-        isPublic: true,
-        picture: '',
+        catchId:1,
+        comment:"kuradi kilu, lendas tagasi",
+        date:"2023-02-02",
+        isPublic:true,
+        length:10,
+        picture:"",
+        released:true,
+        speciesId:7,
+        weight:70
+
       },
 
       messageWarning: '',
@@ -106,6 +116,16 @@ export default {
           })
     },
 
+    prefillByCatchOrFish: function () {
+      if (this.$route.query.catchId != null) {
+        this.isEdit = false
+        this.getCatch()
+      } else {
+        this.isEdit = true
+        this.getFish()
+      }
+    },
+
     getCatch: function () {
       this.$http.get("/catch", {
             params: {
@@ -121,10 +141,37 @@ export default {
       })
     },
 
+    getFish: function () {
+      this.$http.get("/fish", {
+            params: {
+              fishId: this.fishId,
+            }
+          }
+      ).then(response => {
+        this.fish = response.data
+        this.getCatch()
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
     addFish: function () {
       this.$http.post("/fish", this.fish
       ).then(response => {
         this.messageSuccess = 'Kala edukalt lisatud!'
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
+    editFish: function () {
+      this.$http.put("/fish", this.fish, {
+            params: {
+              fishId: this.fishId,
+            }
+          }
+      ).then(response => {
+        this.$router.push({name: 'userFishRoute', query: {catchId: this.fish.catchId }} )
       }).catch(error => {
         console.log(error)
       })
@@ -139,7 +186,7 @@ export default {
 
   beforeMount() {
     this.getSpecies()
-    this.getCatch()
+    this.prefillByCatchOrFish()
   }
 }
 </script>
