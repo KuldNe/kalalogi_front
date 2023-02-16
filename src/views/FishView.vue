@@ -29,7 +29,7 @@
         <br>
         <div class="input-group">
           <span class="input-group-text">Kommentaar</span>
-          <textarea class="form-control" aria-label="With textarea"></textarea>
+          <textarea v-model="fish.comment" class="form-control" aria-label="With textarea"></textarea>
         </div>
         <br>
         <div>
@@ -52,9 +52,13 @@
     <image-input @emitBase64Event="emitBase64"/>
   </div>
   <br>
-<div class="justify-content-end col-10">
-  <button v-on:click="addFish" type="button" class="btn btn-dark">Salvesta</button>
+  <div v-if="isEdit" class="justify-content-end col-10">
+    <button  v-on:click="editFish" type="button" class="btn btn-dark">Muuda kala</button>
+  </div>
+<div v-else class="justify-content-end col-10">
+  <button v-on:click="addFish" type="button" class="btn btn-dark">Lisa kala</button>
 </div>
+
 
 </div>
 </template>
@@ -70,6 +74,9 @@ export default {
   components: {AlertSuccess, ImageInput, AlertDanger},
   data: function () {
     return {
+
+      isEdit: null,
+
       species: [
         {
           speciesId: 0,
@@ -78,6 +85,7 @@ export default {
       ],
 
       locationName: '',
+      fishId: this.$route.query.fishId,
 
       fish: {
         date: '',
@@ -88,6 +96,7 @@ export default {
         released: false,
         isPublic: true,
         picture: '',
+        comment: ''
       },
 
       messageWarning: '',
@@ -121,6 +130,16 @@ export default {
       })
     },
 
+    prefillByCatchOrFish: function () {
+      if (this.$route.query.catchId != null) {
+        this.isEdit = false
+        this.getCatch()
+      } else {
+        this.isEdit = true
+        this.getFish()
+      }
+    },
+
     getFish: function () {
       this.$http.get("/fish", {
             params: {
@@ -128,7 +147,8 @@ export default {
             }
           }
       ).then(response => {
-        console.log(response.data)
+        this.fish = response.data
+        this.getCatch()
       }).catch(error => {
         console.log(error)
       })
@@ -143,6 +163,20 @@ export default {
       })
     },
 
+    editFish: function () {
+      this.$http.put("/fish",
+          this.fish, {
+            params: {
+              fishId: this.fishId,
+            }
+          }
+      ).then(response => {
+        this.$router.push({name: 'userFishRoute', query: {catchId: this.fish.catchId}})
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
 
     emitBase64: function (pictureDataBase64) {
       this.fish.picture = pictureDataBase64
@@ -152,11 +186,7 @@ export default {
 
   beforeMount() {
     this.getSpecies()
-    this.getCatch()
+    this.prefillByCatchOrFish()
   }
 }
 </script>
-
-<style scoped>
-
-</style>
