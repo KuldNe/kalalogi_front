@@ -89,13 +89,13 @@ export default {
 
       fish: {
         catchId: this.$route.query.catchId,
-        comment: "",
-        date: "",
-        isPublic: true,
-        length: 0,
-        picture: "",
+        comment:"",
+        date:"",
+        isPublic:true,
+        length:0,
+        picture:"",
         released:false,
-        speciesId:0,
+        speciesId:null,
         weight:0
 
       },

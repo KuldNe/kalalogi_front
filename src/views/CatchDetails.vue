@@ -16,7 +16,7 @@
       </div>
       <div v-show="showButtons" class ="col-2">
         <span>Kustuta    </span>
-        <font-awesome-icon v-on:click="askDeleteCatch" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" style="color: crimson" />
+        <font-awesome-icon v-on:click="askDeleteCatch" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" style="color:crimson" />
       </div>
       <div v-show="showButtons" class="col-2">
         <span>Vaata saaki</span>
@@ -30,6 +30,8 @@
           <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
         </router-link>
       </div>
+
+
 
       <AlertDanger :message="messageDanger"/>
       <AlertSuccess :message="messageSuccess"/>
@@ -117,7 +119,7 @@ export default {
             }
           }
       ).then(response => {
-        this.messageSuccess= 'Püük kustutatud!'
+        this.messageDanger= 'Püük kustutatud!'
         setTimeout(() => {
           this.$router.go()
         }, 2000)

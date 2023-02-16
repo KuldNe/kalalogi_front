@@ -28,3 +28,10 @@ body {
     margin-right: 1%;
 }
 
+.dropdown-menu {
+    overflow-y: scroll;
+    min-height: available;
+    max-height: 1600%;
+
+}
+
