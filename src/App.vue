@@ -35,7 +35,7 @@
             <span class="fs-6">Filtreeri:</span>
 
             <div class="btn-group">
-              <button class="btn btn-secondary btn-sm" type="button">
+              <button class="btn btn-secondary btn-sm" type="button" style="width: 80%">
                 Püügikoht
               </button>
               <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
@@ -43,11 +43,12 @@
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
               <ul class="dropdown-menu">
-                <li v-for="location in locations" class="dropdown-item" v-on:click="test(location.locationId)">
+                <li class="dropdown-item" v-on:click="filters.filterLocation=null">KÕIK</li>
+                <li v-for="location in locations" :key="location.locationId" class="dropdown-item"
+                    v-on:click="filters.filterLocation=location.locationName">
                   {{ location.locationName }}
                 </li>
-                <li><a class="dropdown-item" href="#">emajõgi</a></li>
-                <li><a class="dropdown-item" href="#">lomp</a></li>
+
               </ul>
             </div>
 
@@ -62,9 +63,11 @@
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">haug</a></li>
-                <li><a class="dropdown-item" href="#">latikas</a></li>
-                <li><a class="dropdown-item" href="#">lest</a></li>
+                <li class="dropdown-item" v-on:click="filters.filterSpecies=null">KÕIK</li>
+                <li v-for="specie in species" :key="specie.speciesId" class="dropdown-item"
+                    v-on:click="filters.filterSpecies=specie.speciesName">
+                  {{ specie.speciesName }}
+                </li>
               </ul>
             </div>
           </div>
@@ -73,7 +76,7 @@
       </nav>
     </div>
     <div id="main">
-      <router-view v-on:load="checkIfFishviewAndReload" @emitLoginSuccessEvent="updateUserAndReload"/>
+      <router-view :fishFilters="filters" v-on:load="checkIfFishviewAndReload" @emitLoginSuccessEvent="updateUserAndReload"/>
     </div>
 
   </div>
@@ -89,6 +92,19 @@ export default {
       isUser: false,
       isAdmin: false,
       isHomeView: true,
+
+      filters: {
+        filterLocation: null,
+        filterSpecies: null,
+      },
+
+
+      species: [
+        {
+          speciesId: null,
+          speciesName: ''
+        }
+      ],
 
       locations: [
         {
@@ -127,6 +143,16 @@ export default {
           })
     },
 
+    getSpecies: function () {
+      this.$http.get("/fish/species")
+          .then(response => {
+            this.species = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
+
 
     checkIfFishviewAndReload: function () {
       alert('routerview change')
@@ -135,7 +161,7 @@ export default {
     },
 
     checkIfFishview: function () {
-      if (this.$route.name === 'homeRoute' || this.$route.name ==='userFishRoute') {
+      if (this.$route.name === 'homeRoute' || this.$route.name === 'userFishRoute') {
         this.isHomeView = true
       } else {
         this.isHomeView = false
@@ -145,10 +171,12 @@ export default {
   beforeMount() {
     this.updateUserAccess()
     this.getAllLocations()
+    this.getSpecies()
     this.checkIfFishview()
+
   },
   watch: {
-    $route () {
+    $route() {
       this.checkIfFishview()
     }
   }
