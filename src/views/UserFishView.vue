@@ -1,9 +1,7 @@
 <template>
   <div>
     <div v-for="fish in fishies">
-
-        <fish-details :fish="fish"/>
-
+      <fish-details :fish="fish"/>
     </div>
   </div>
 </template>
@@ -17,18 +15,15 @@ export default {
   components: {FishDetails},
   props: {
     filterLocationId: Number,
-    filterSpeciesId: Number
+    filterSpeciesId: Number,
   },
-
   watch: {
     filterLocationId: function () {
       this.getUserFish()
     },
-
     filterSpeciesId: function () {
       this.getUserFish()
-    }
-
+    },
   },
 
   data: function () {
@@ -77,15 +72,18 @@ export default {
         console.log(error)
       })
     },
-
-
   },
 
-
   beforeMount() {
+    console.log('user fish vaade beforemount')
+
     this.getFishies()
   }
 
 
 }
 </script>
+
+<style scoped>
+
+</style>

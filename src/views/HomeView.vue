@@ -1,13 +1,10 @@
 <template>
   <div>
+
     <div v-for="fish in fishies">
-      <div v-for="fish in fishies">
-
-        <fish-details :fish="fish"/>
-
-      </div>
-
+      <fish-details :fish="fish"/>
     </div>
+
   </div>
 </template>
 
@@ -21,18 +18,15 @@ export default {
   components: {FishDetails},
   props: {
     filterLocationId: Number,
-    filterSpeciesId: Number
+    filterSpeciesId: Number,
   },
-
   watch: {
     filterLocationId: function () {
       this.getFishies()
     },
-
     filterSpeciesId: function () {
       this.getFishies()
-    }
-
+    },
   },
 
   data: function () {
@@ -45,9 +39,9 @@ export default {
   methods: {
 
     getFishies: function () {
-      this.$http.get("fishies", {
+      this.$http.get("/fishies", {
             params: {
-              watebodyId: this.filterLocationId,
+              waterbodyId: this.filterLocationId,
               speciesId: this.filterSpeciesId
             }
           }
@@ -59,13 +53,8 @@ export default {
     },
   },
 
-
   beforeMount() {
     this.getFishies()
-  },
-
-  watch: {
-
   }
 
 }
