@@ -1,5 +1,7 @@
 <template>
   <div>
+    
+
     <div v-for="fish in fishies">
       <div v-if="fishFilters.filterSpecies == null && fishFilters.filterLocation == null">
         <fish-details :fish="fish"/>
