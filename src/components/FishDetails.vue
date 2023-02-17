@@ -2,10 +2,22 @@
   <div>
     <div class="container" style="margin-top: 8px; margin-left: 8px; padding: 8px">
       <div @mouseover="showEdit=true" @mouseout="showEdit=false" class="align-items-center row text-white bg-dark">
+
         <div class="col">
-          <img v-if="fish.picture==='' || fish.picture==null" src="../assets/images.png" class="img-thumbnail"
-               width="200" height="200" alt="Kalapilt">
-          <img v-else :src="fish.picture" class="img-thumbnail" width="200" height="200" alt="Kalapilt">
+          <div class="">
+            <div v-for="(src, index) in imgs" :key="index" class="pictures" @click="() => showImg(index)">
+              <img v-if="hasPicture" class="img-thumbnail" width="200" height="200" :src="src.src" />
+
+              <img v-else src="../assets/images.png" class="img-thumbnail"
+                   width="200" height="200" alt="Kalapilt">
+            </div>
+          </div>
+          <vue-easy-lightbox
+              :visible="visible"
+              :imgs="imgs"
+              :index="index"
+              @hide="handleHide"
+          ></vue-easy-lightbox>
         </div>
         <div class="col">
           <div class="row justify-content-center">
@@ -58,14 +70,50 @@ export default {
   name: 'FishDetails',
 
   props: {
-    fish: {}
+    fish: {
+      comment: '',
+      date:"2023-02-24",
+      fishId:Number,
+      isPublic:Boolean,
+      length:Number,
+      locationName:'',
+      picture:'',
+      released:Boolean,
+      speciesName:'',
+      userName:'',
+      weight:Number,
+    }
   },
 
   data: function () {
     return {
+
+      hasPicture: !(this.fish.picture==='' || this.fish.picture==null),
+      visible: false,
+      index: 0,
+      imgs: [
+        {
+          src: this.fish.picture,
+          title: this.fish.speciesName+": " +this.fish.locationName +", " + this.fish.date,
+        }
+      ],
+
       activeUsername: sessionStorage.getItem('userName'),
       showEdit: false
     }
+  },
+
+  methods: {
+    showImg(index) {
+      this.index = index;
+      if(this.hasPicture){
+        this.visible = true;
+      }
+
+    },
+    handleHide() {
+      this.visible = false;
+    },
   }
 
 }
