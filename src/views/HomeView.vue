@@ -37,15 +37,6 @@ export default {
   },
 
   methods: {
-  //   getFishiesVana: function () {
-  //     this.$http.get("/fishies")
-  //         .then(response => {
-  //           this.fishies = response.data
-  //         })
-  //         .catch(error => {
-  //           console.log(error)
-  //         })
-  //   },
 
     getFishies: function () {
       this.$http.get("/fishies", {
