@@ -1,18 +1,10 @@
 <template>
   <div>
     <div v-for="fish in fishies">
-      <div v-if="fishFilters.filterSpecies == null && fishFilters.filterLocation == null">
-      <fish-details :fish="fish"/>
-      </div>
-      <div v-else-if="fishFilters.filterSpecies != null && fishFilters.filterLocation == null">
-        <fish-details v-if="fishFilters.filterSpecies===fish.speciesName" :fish="fish"/>
-      </div>
-      <div v-else-if="fishFilters.filterSpecies == null && fishFilters.filterLocation != null">
-        <fish-details v-if="fishFilters.filterLocation===fish.locationName" :fish="fish"/>
-      </div>
-      <div v-else>
-        <fish-details v-if="fishFilters.filterLocation===fish.locationName
-                            && fishFilters.filterSpecies===fish.speciesName" :fish="fish"/>
+      <div v-for="fish in fishies">
+
+        <fish-details :fish="fish"/>
+
       </div>
 
     </div>
@@ -28,7 +20,19 @@ export default {
   name: 'HomeView',
   components: {FishDetails},
   props: {
-    fishFilters: {}
+    filterLocationId: Number,
+    filterSpeciesId: Number
+  },
+
+  watch: {
+    filterLocationId: function () {
+      this.getFishies()
+    },
+
+    filterSpeciesId: function () {
+      this.getFishies()
+    }
+
   },
 
   data: function () {
@@ -39,19 +43,31 @@ export default {
   },
 
   methods: {
+
     getFishies: function () {
-      this.$http.get("/fishies")
-          .then(response => {
-            this.fishies = response.data
-          })
-          .catch(error => {
-            console.log(error)
-          })
+      this.$http.get("fishies", {
+            params: {
+              watebodyId: this.filterLocationId,
+              speciesId: this.filterSpeciesId
+            }
+          }
+      ).then(response => {
+        this.fishies = response.data
+      }).catch(error => {
+        console.log(error)
+      })
     },
   },
+
+
   beforeMount() {
     this.getFishies()
+  },
+
+  watch: {
+
   }
+
 }
 </script>
 

@@ -1,27 +1,17 @@
 <template>
-  <FishDetails/>
+  <div  class = "col-8 offset-2">
+    <div class = "card">
+<BarChart/>
+  </div>
+  </div>
 </template>
 
 <script>
-
-import FishDetails from "@/components/FishDetails.vue";
+import BarChart from "@/components/BarChart.vue";
 
 export default {
   name: "TestView",
-  components: {FishDetails},
-  data: function () {
-    return {
-        speciesName: '',
-        length: 0,
-        weight: 0,
-        catchDate: '10-09-22',
-        waterbody: '',
-        userComment: '',
-        wasReleased: true,
-        picture: '',
-
-      }
-    }
-  }
+  components: {BarChart}
+}
 </script>
 

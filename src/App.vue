@@ -43,9 +43,9 @@
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
               <ul class="dropdown-menu">
-                <li class="dropdown-item" v-on:click="filters.filterLocation=null">KÕIK</li>
+                <li class="dropdown-item" v-on:click="filterLocationId=0">KÕIK</li>
                 <li v-for="location in locations" :key="location.locationId" class="dropdown-item"
-                    v-on:click="filters.filterLocation=location.locationName">
+                    v-on:click="filterLocationId=location.locationId">
                   {{ location.locationName }}
                 </li>
 
@@ -63,9 +63,9 @@
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
               <ul class="dropdown-menu">
-                <li class="dropdown-item" v-on:click="filters.filterSpecies=null">KÕIK</li>
+                <li class="dropdown-item" v-on:click="filterSpeciesId=0">KÕIK</li>
                 <li v-for="specie in species" :key="specie.speciesId" class="dropdown-item"
-                    v-on:click="filters.filterSpecies=specie.speciesName">
+                    v-on:click="filterSpeciesId=specie.speciesId">
                   {{ specie.speciesName }}
                 </li>
               </ul>
@@ -76,7 +76,7 @@
       </nav>
     </div>
     <div id="main">
-      <router-view :fishFilters="filters" v-on:load="checkIfFishviewAndReload" @emitLoginSuccessEvent="updateUserAndReload"/>
+      <router-view :filter-location-id="filterLocationId" :filter-species-id="filterSpeciesId" @emitLoginSuccessEvent="updateUserAndReload"/>
     </div>
 
   </div>
@@ -93,10 +93,10 @@ export default {
       isAdmin: false,
       isHomeView: true,
 
-      filters: {
-        filterLocation: null,
-        filterSpecies: null,
-      },
+
+        filterLocationId: 0,
+        filterSpeciesId: 0,
+
 
 
       species: [

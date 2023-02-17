@@ -1,19 +1,8 @@
 <template>
   <div>
     <div v-for="fish in fishies">
-      <div v-if="fishFilters.filterSpecies == null && fishFilters.filterLocation == null">
+
         <fish-details :fish="fish"/>
-      </div>
-      <div v-else-if="fishFilters.filterSpecies != null && fishFilters.filterLocation == null">
-        <fish-details v-if="fishFilters.filterSpecies===fish.speciesName" :fish="fish"/>
-      </div>
-      <div v-else-if="fishFilters.filterSpecies == null && fishFilters.filterLocation != null">
-        <fish-details v-if="fishFilters.filterLocation===fish.locationName" :fish="fish"/>
-      </div>
-      <div v-else>
-        <fish-details v-if="fishFilters.filterLocation===fish.locationName
-                            && fishFilters.filterSpecies===fish.speciesName" :fish="fish"/>
-      </div>
 
     </div>
   </div>
@@ -27,7 +16,19 @@ export default {
   name: "UserFishView",
   components: {FishDetails},
   props: {
-    fishFilters: {}
+    filterLocationId: Number,
+    filterSpeciesId: Number
+  },
+
+  watch: {
+    filterLocationId: function () {
+      this.getUserFish()
+    },
+
+    filterSpeciesId: function () {
+      this.getUserFish()
+    }
+
   },
 
   data: function () {
@@ -52,7 +53,9 @@ export default {
     getUserFish: function () {
       this.$http.get("/user/fish", {
             params: {
-              userId: this.userId
+              userId: this.userId,
+              waterbodyId: this.filterLocationId,
+              speciesId: this.filterSpeciesId
             }
           }
       ).then(response => {
