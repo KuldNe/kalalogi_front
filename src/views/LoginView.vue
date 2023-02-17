@@ -3,7 +3,7 @@
   <div id="view" class="col-4 bg-dark just rounded-4" style="margin-top: 100px; margin-left: 30px; padding: 30px">
 
       <AlertDanger :message="messageDanger" />
-      <form class="px-4 py-3">
+
         <div class="mb-3">
           <label class="form-label">Kasutajanimi</label>
           <input v-model="username" type="text" class="form-control" placeholder="kasutajanimi">
@@ -13,7 +13,7 @@
           <input v-model="password" type="password" class="form-control" placeholder="parool">
         </div>
         <button v-on:click="login" type="submit" class="btn btn-secondary">Logi sisse</button>
-      </form>
+
 
 <router-link to="/register">Oled uus? Registreeru!</router-link>
 
