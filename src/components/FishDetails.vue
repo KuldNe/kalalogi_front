@@ -1,5 +1,12 @@
 <template>
-  <div>
+<!--  <div>-->
+<!--    <div class="row">-->
+<!--      <div v-else class="justify-content-end col-10">-->
+<!--        <button v-on:click="addFish" type="button" class="btn btn-dark">Lisa kala</button>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
     <div class="container" style="margin-top: 8px; margin-left: 8px; padding: 8px">
       <div @mouseover="showEdit=true" @mouseout="showEdit=false" class="align-items-center row text-white bg-dark">
         <div class="col">
