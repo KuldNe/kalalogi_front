@@ -158,7 +158,15 @@ export default {
     addFish: function () {
       this.$http.post("/fish", this.fish
       ).then(response => {
-        this.messageSuccess = 'Kala edukalt lisatud!'
+        this.messageSuccess = 'Kala edukalt lisatud!';
+        this.$data.fish.speciesId = null;
+        this.$data.fish.length = 0;
+        this.$data.fish.weight = 0;
+        this.$data.fish.comment = "";
+        this.$data.fish.released = false;
+        this.$data.fish.isPublic = true;
+        this.$data.fish.picture = null;
+
       }).catch(error => {
         console.log(error)
       })
