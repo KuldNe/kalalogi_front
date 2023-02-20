@@ -159,6 +159,15 @@ export default {
       this.$http.post("/fish", this.fish
       ).then(response => {
         this.messageSuccess = 'Kala edukalt lisatud!'
+        this.fish.speciesId = null
+        this.fish.length = 0
+        this.fish.weight = 0
+        this.fish.comment = ""
+        this.fish.released = false
+        this.fish.isPublic = true
+        this.fish.picture = null
+        this.$router.go()
+
       }).catch(error => {
         console.log(error)
       })

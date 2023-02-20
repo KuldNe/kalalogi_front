@@ -1,5 +1,15 @@
 <template>
   <div>
+
+
+      <div v-if="catchId" class="col-12">
+        <span>Lisa kala      </span>
+        <router-link :to="{name: 'fishRoute', query: {catchId: catchId}}">
+          <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
+        </router-link>
+      </div>
+
+
     <div v-for="fish in fishies">
       <fish-details :fish="fish"/>
     </div>
@@ -72,7 +82,10 @@ export default {
         console.log(error)
       })
     },
+
+
   },
+
 
   beforeMount() {
     this.getFishies()
@@ -80,7 +93,3 @@ export default {
 
 }
 </script>
-
-<style scoped>
-
-</style>
