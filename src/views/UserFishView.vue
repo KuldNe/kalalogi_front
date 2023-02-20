@@ -75,11 +75,8 @@ export default {
   },
 
   beforeMount() {
-    console.log('user fish vaade beforemount')
-
     this.getFishies()
   }
-
 
 }
 </script>

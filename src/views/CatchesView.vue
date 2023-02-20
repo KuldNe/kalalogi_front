@@ -7,7 +7,7 @@
 
     <div class="container m-3 p-3">
       <div v-for="aCatch in catches" :key="aCatch.catchId">
-        <CatchDetails :locations="locations" :aCatch="aCatch"/>
+        <CatchDetails :locations="locations" :aCatch="aCatch" @emitCatchUpdateSuccess="getUserCatches"/>
       </div>
     </div>
   </div>
@@ -37,7 +37,6 @@ export default {
         }
       ],
 
-
       locations: [
         {
           locationId: 0,
@@ -46,6 +45,7 @@ export default {
           longitude: ''
         }
       ],
+
       locationId: 0,
       date: '',
       userId: sessionStorage.getItem('userId')

@@ -30,13 +30,9 @@
           <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
         </router-link>
       </div>
-
-
-
       <AlertDanger :message="messageDanger"/>
       <AlertSuccess :message="messageSuccess"/>
-      <EditCatch :check-and-edit-catch="checkAndEditCatch" :edit-date="editDate" :edit-location-id="editLocationId"
-                    :locations="locations" :show-edit="showEdit"/>
+      <EditCatch :locations="locations" :show-edit="showEdit" :a-catch="aCatch"/>
 
     </div>
   </div>
@@ -59,8 +55,8 @@ export default {
       showEdit: false,
       showButtons: false,
 
-      editDate: '',
-      editLocationId: '',
+      // editDate: '',
+      // editLocationId: '',
       messageDanger: '',
       messageSuccess: '',
     }
@@ -71,38 +67,38 @@ export default {
       this.showEdit = !this.showEdit
     },
 
-    checkAndEditCatch: function () {
-      if (this.editDate !== '' && this.editLocationId !== 0) {
-        this.editCatch()
-      } else {
-        this.messageDanger= 'Täida kõik väljad'
-      }
-    },
-
-    editCatch: function () {
-      this.$http.put("/catch",
-          {
-            date: this.editDate,
-            userId: sessionStorage.getItem("userId"),
-            waterbodyId: this.editLocationId
-          },
-          {
-            params: {
-              catchId: this.aCatch.catchId
-            }
-          }
-      ).then(response => {
-        this.toggleShowEdit()
-        this.$router.go()
-      }).catch(error => {
-        console.log(error)
-      })
-    },
-
-    prefillEditCatch: function () {
-      this.editDate = this.aCatch.catchDate
-      this.editLocationId = this.aCatch.waterbodyId
-    },
+    // checkAndEditCatch: function () {
+    //   if (this.editDate !== '' && this.editLocationId !== 0) {
+    //     this.editCatch()
+    //   } else {
+    //     this.messageDanger= 'Täida kõik väljad'
+    //   }
+    // },
+    //
+    // editCatch: function () {
+    //   this.$http.put("/catch",
+    //       {
+    //         date: this.editDate,
+    //         userId: sessionStorage.getItem("userId"),
+    //         waterbodyId: this.editLocationId
+    //       },
+    //       {
+    //         params: {
+    //           catchId: this.aCatch.catchId
+    //         }
+    //       }
+    //   ).then(response => {
+    //     this.toggleShowEdit()
+    //     this.$emit('emitCatchUpdateSuccess')
+    //   }).catch(error => {
+    //     console.log(error)
+    //   })
+    // },
+    //
+    // prefillEditCatch: function () {
+    //   this.editDate = this.aCatch.catchDate
+    //   this.editLocationId = this.aCatch.waterbodyId
+    // },
 
     askDeleteCatch: function () {
       if(confirm('Oled sa kindel, et soovid püügi kustutada?')) {
@@ -119,9 +115,10 @@ export default {
             }
           }
       ).then(response => {
-        this.messageDanger= 'Püük kustutatud!'
+        this.messageSuccess= 'Püük kustutatud!'
         setTimeout(() => {
-          this.$router.go()
+          // this.$router.go()
+          this.$emit('emitCatchUpdateSuccess')
         }, 2000)
       }).catch(error => {
         console.log(error)
@@ -132,7 +129,7 @@ export default {
   },
 
   beforeMount() {
-    this.prefillEditCatch()
+    // this.prefillEditCatch()
   }
 
 
