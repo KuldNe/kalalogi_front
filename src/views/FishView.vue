@@ -92,11 +92,11 @@ export default {
         comment:"",
         date:"",
         isPublic:true,
-        length:0,
+        length:null,
         picture:"",
         released:false,
         speciesId:null,
-        weight:0
+        weight:null
 
       },
 
@@ -190,7 +190,6 @@ export default {
     emitBase64: function (pictureDataBase64) {
       this.fish.picture = pictureDataBase64
     }
-
   },
 
   beforeMount() {

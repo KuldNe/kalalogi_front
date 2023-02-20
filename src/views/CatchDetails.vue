@@ -32,7 +32,7 @@
       </div>
       <AlertDanger :message="messageDanger"/>
       <AlertSuccess :message="messageSuccess"/>
-      <EditCatch :locations="locations" :show-edit="showEdit" :a-catch="aCatch"/>
+      <EditCatch :locations="locations" :show-edit="showEdit" :a-catch="aCatch" @emitCatchUpdateSuccess="toggleShowEdit"/>
 
     </div>
   </div>
@@ -65,6 +65,7 @@ export default {
   methods: {
     toggleShowEdit: function () {
       this.showEdit = !this.showEdit
+      this.$emit('emitCatchUpdateSuccess')
     },
 
     // checkAndEditCatch: function () {

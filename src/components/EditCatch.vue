@@ -1,9 +1,10 @@
 <template>
   <div>
-    <AlertDanger :message="messageDanger"/>
-    <AlertSuccess :message="messageSuccess"/>
+
     <div v-if="showEdit" class="align-items-center row text-white bg-dark"
          style="margin-top: 10px; margin-left: 10px; padding: 10px">
+      <AlertDanger :message="messageDanger"/>
+      <AlertSuccess :message="messageSuccess"/>
       <div class="col-2">
         <span>Kuupäev</span>
         <input v-model="editDate" id="startDate" class="form-control" type="date"/>
@@ -24,8 +25,12 @@
   </div>
 </template>
 <script>
+import AlertDanger from "@/components/alert/AlertDanger.vue";
+import AlertSuccess from "@/components/alert/AlertSuccess.vue";
+
 export default {
   name: 'EditCatch',
+  components: {AlertSuccess, AlertDanger},
   props: {
     showEdit: {},
     aCatch: {},
@@ -37,7 +42,7 @@ export default {
       editDate: '',
       editLocationId: '',
       messageDanger: '',
-      messageSuccess: '',
+      messageSuccess: ''
     }
   },
 
@@ -63,8 +68,11 @@ export default {
             }
           }
       ).then(response => {
-        this.toggleShowEdit()
-        this.$emit('emitCatchUpdateSuccess')
+        this.messageSuccess='Püük uuendatud'
+        setTimeout(() => {
+          this.messageSuccess=''
+          this.$emit('emitCatchUpdateSuccess')
+        }, 2000)
       }).catch(error => {
         console.log(error)
       })
