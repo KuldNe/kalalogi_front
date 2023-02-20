@@ -6,6 +6,7 @@ import RegisterView from "@/views/RegisterView.vue";
 import FishView from "@/views/FishView.vue";
 import CatchesView from "@/views/CatchesView.vue";
 import UserFishView from "@/views/UserFishView.vue";
+import BarChartView from "@/components/BarChart.vue";
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,11 @@ const routes = [
     path: '/register',
     name: 'registerRoute',
     component: RegisterView
+  },
+  {
+    path: '/barchart',
+    name: 'barChartRoute',
+    component: BarChartView
   }
 ]
 
