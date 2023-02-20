@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div v-for="fish in fishies">
+    <div v-for="fish in fishDisplay.fishies">
       <fish-details :fish="fish"/>
     </div>
 
@@ -20,6 +20,7 @@ export default {
     filterLocationId: Number,
     filterSpeciesId: Number,
   },
+
   watch: {
     filterLocationId: function () {
       this.getFishies()
@@ -31,8 +32,14 @@ export default {
 
   data: function () {
     return {
-      fishies: [],
+      fishDisplay: {
+        totalPages: Number,
+        fishies: []
+      },
 
+
+      pageNo:2,
+      perPage:5
     }
   },
 
@@ -42,11 +49,13 @@ export default {
       this.$http.get("/fishies", {
             params: {
               waterbodyId: this.filterLocationId,
-              speciesId: this.filterSpeciesId
+              speciesId: this.filterSpeciesId,
+              pageNo: this.pageNo,
+              perPage: this.perPage
             }
           }
       ).then(response => {
-        this.fishies = response.data
+        this.fishDisplay = response.data
       }).catch(error => {
         console.log(error)
       })

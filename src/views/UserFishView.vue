@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="fish in fishies">
+    <div v-for="fish in fishDisplay.fishies">
       <fish-details :fish="fish"/>
     </div>
   </div>
@@ -19,16 +19,19 @@ export default {
   },
   watch: {
     filterLocationId: function () {
-      this.getUserFish()
+      this.getFishies()
     },
     filterSpeciesId: function () {
-      this.getUserFish()
+      this.getFishies()
     },
   },
 
   data: function () {
     return {
-      fishies: [],
+      fishDisplay: {
+        fishies: [],
+        totalPages: Number
+      },
       userId: sessionStorage.getItem('userId'),
       catchId: this.$route.query.catchId,
 
@@ -54,7 +57,7 @@ export default {
             }
           }
       ).then(response => {
-        this.fishies = response.data
+        this.fishDisplay = response.data
       }).catch(error => {
         console.log(error)
       })
@@ -63,11 +66,13 @@ export default {
     getCatchFish: function () {
       this.$http.get("/catch/fish", {
             params: {
-              catchId: this.catchId
+              catchId: this.catchId,
+              waterbodyId: this.filterLocationId,
+              speciesId: this.filterSpeciesId
             }
           }
       ).then(response => {
-        this.fishies = response.data
+        this.fishDisplay = response.data
       }).catch(error => {
         console.log(error)
       })
