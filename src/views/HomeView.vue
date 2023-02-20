@@ -5,6 +5,15 @@
       <fish-details :fish="fish"/>
     </div>
 
+    <div class="col">
+      <span> <font-awesome-icon icon="fa-solid fa-angles-left"/> </span>
+      <span> <font-awesome-icon icon="fa-solid fa-angles-right"/> </span>
+    </div>
+
+
+
+
+
   </div>
 </template>
 
