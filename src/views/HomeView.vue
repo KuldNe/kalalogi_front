@@ -5,13 +5,19 @@
       <fish-details :fish="fish"/>
     </div>
 
-    <div class="col">
-      <span> <font-awesome-icon icon="fa-solid fa-angles-left"/> </span>
-      <span> <font-awesome-icon icon="fa-solid fa-angles-right"/> </span>
+    <div aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Eelmine</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Järgmine</a>
+        </li>
+      </ul>
     </div>
-
-
-
 
 
   </div>

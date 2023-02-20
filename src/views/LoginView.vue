@@ -14,9 +14,10 @@
         </div>
         <button v-on:click="login" type="submit" class="btn btn-secondary">Logi sisse</button>
 
-
+    <br>
 <router-link to="/register">Oled uus? Registreeru!</router-link>
-
+    <br>
+<span >Unustasin parooli</span>
 
   </div>
 </template>

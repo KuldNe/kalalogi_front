@@ -4,10 +4,10 @@
     <div class="col">
       <nav>
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark  shadow p-3 mb-5 " style="height: 100%">
-          <img
-              src="https://i.fbcd.co/products/original/4dd08023a2500a7efaf141af098d33ad7832bd3f45350ff0df4a4e317a62ce83.jpg"
-              alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong><span class="fs-4 align-items-center">Kalalogi</span></strong>
+          <img class="rounded-circle me-2" width="150" height="150" src="./assets/kalalogo.png" />
+
+<!--              alt="" width="32" height="32" class="rounded-circle me-2">-->
+<!--          <strong><span class="fs-4 align-items-center">Kalalogi</span></strong>-->
           <hr>
           <div class="d-grid gap-2">
             <button type="button" class="btn btn-secondary btn-sm">
@@ -71,7 +71,6 @@
               </ul>
             </div>
           </div>
-
         </div>
       </nav>
     </div>
