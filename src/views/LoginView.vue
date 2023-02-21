@@ -1,29 +1,32 @@
 <template>
 
-  <div id="view" v-on:keydown.enter="login" class="col-4 bg-dark just rounded-4" style="margin-top: 100px; margin-left: 30px; padding: 30px">
+  <div id="view" v-on:keydown.enter="login" class="col-4 bg-dark just rounded-4"
+       style="margin-top: 100px; margin-left: 30px; padding: 30px">
 
-      <AlertDanger :message="messageDanger" />
+    <AlertDanger :message="messageDanger"/>
 
-        <div class="mb-3">
-          <label class="form-label">Kasutajanimi</label>
-          <input v-model="username" type="text" class="form-control" placeholder="kasutajanimi">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Parool</label>
-          <input v-model="password" type="password" class="form-control" placeholder="parool">
-        </div>
-        <button v-on:click="login" type="submit" class="btn btn-secondary">Logi sisse</button>
+    <div class="mb-3">
+      <label class="form-label">Kasutajanimi</label>
+      <input v-model="username" type="text" class="form-control" placeholder="kasutajanimi">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Parool</label>
+      <input v-model="password" type="password" class="form-control" placeholder="parool">
+    </div>
+    <button v-on:click="login" type="submit" class="btn btn-secondary">Logi sisse</button>
 
     <br>
-<router-link to="/register">Oled uus? Registreeru!</router-link>
+    <router-link to="/register">Oled uus? Registreeru!</router-link>
     <br>
-<span >Unustasin parooli</span>
+    <button v-on:click="forgotPassword" type="button" class="btn btn-dark">Unustasin parooli</button>
+
 
   </div>
 </template>
 
 <script>
 import AlertDanger from "@/components/alert/AlertDanger.vue";
+
 export default {
   name: "LoginView",
   components: {AlertDanger},
@@ -53,7 +56,7 @@ export default {
 
     login: function () {
       this.messageDanger = ''
-      if (this.username == '' || this.password =='') {
+      if (this.username == '' || this.password == '') {
         // this.message = 'Täida kõik väljad'
       } else {
         this.sendLoginRequest();
@@ -80,6 +83,10 @@ export default {
         this.apiError = error.response.data
         this.messageDanger = this.apiError.message
       })
+    },
+
+    forgotPassword: function () {
+      alert("Uue parooli seadistamiseks vaata meili!");
     }
 
   }
