@@ -29,7 +29,21 @@
           <br>
           <div class="input-group">
             <span class="input-group-text">Kommentaar</span>
-            <textarea v-model="fish.comment" class="form-control" maxlength="1000" style="overflow-y: scroll; height:80px" > </textarea>
+            <textarea v-model="fish.comment" :class="{'overflow-y': scroll > str.length } " maxlength="1000" style=" overflow-y: scroll; height: 50px" > </textarea>
+
+<!--            <span class="input-group-text" :class="{'input-success' : Number(numberOfAtms) > 0}">Automaatide arv</span>-->
+
+            <!--            <textarea v-model="fish.comment" style="overflow-y:auto; width:10px; height: 10px"> </textarea>-->
+<!--            <div v-model="fish.comment" class="form-control" style="overflow-y: auto; max-height:80px; max-width:80px"> </div>-->
+
+
+
+<!--            :class="{'input-filled': (Number(numberOfAtms) > 0)-->
+<!--            overflow: auto;
+        width: 150px;
+        height: 150px;
+        border: 1px solid grey;-->
+<!--            height:80px-->
 
             </div>
           <br>
