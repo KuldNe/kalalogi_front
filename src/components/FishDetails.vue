@@ -45,7 +45,7 @@
             Vabastatud
           </div>
         </div>
-        <div class="col-4" maxlength="1000" style="overflow-y: scroll; height:150px">
+        <div class="col-4" maxlength="1000" style="overflow-y: auto; height:100px">
           Kommentaar: {{ fish.comment }}
         </div>
         <div v-if="activeUsername===fish.userName" class="col">
