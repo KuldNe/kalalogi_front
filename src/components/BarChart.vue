@@ -1,26 +1,13 @@
 <template>
-  <div>
-    <span>Hello</span>
-    <br>
-    <span>{{ numberOfFish }}</span>
+  <div class="align-content-center">
 
-    <Bar class="bg-light align-content-center "
+  <div class="col-6" style="margin-top: 8px; margin-left: 8px; padding: 8px">
+    <Bar v-if="chartLoaded"  class="bg-light align-content-center "
          id="my-chart-id"
          :options="chartOptions"
          :data="chartData"
     />
-
-    <div id="example_1">
-      <ul>
-        <li v-if="chartFishes.length">Array Length : {{ chartFishes.length }}</li>
-        <li v-for="name in chartFishes">
-          Category : {{ name.speciesName }}
-        </li>
-      </ul>
-      <div/>
-
-
-    </div>
+  </div>
 
   </div>
 
@@ -31,9 +18,6 @@
 
 import {Bar} from 'vue-chartjs'
 import {Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale} from 'chart.js'
-import data from "bootstrap/js/src/dom/data";
-
-
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
@@ -42,74 +26,58 @@ export default {
 
   data() {
     return {
-
-      chartFishes: [
-        {
-          fishId: 0,
-          speciesName: '',
-          length: 0,
-          weight: 0,
-          date: '',
-          locationName: '',
-          released: true,
-          isPublic: true,
-          comment: '',
-          userName: '',
-          picture: ''
-        }
-      ],
+      chartLoaded: false,
       userId: sessionStorage.getItem('userId'),
-
-      numberOfFish: 0,
-      parsedChart: [],
-
       chartData: {
-
         datasets: [
           {
             label: '',
-            data: [{id: 'whatevr', nested: {value: 1111}}, {id: 'Kalaliik 2', nested: {value: 500}}]
+            data: [
+
+            ]
           },
         ],
       },
       chartOptions: {
         responsive: true,
-        backgroundColor: '#0037ff',
+        backgroundColor: '#3290c9',
+        hoverBackgroundColor: '#79b7e0',
+        borderWidth: 1,
+        borderColor: '#27272a',
+
         parsing: {
-          xAxisKey: 'id',
-          yAxisKey: 'nested.value'
+          xAxisKey: 'speciesName',
+          yAxisKey: 'countFish'
         }
 
       },
 
-
     }
   },
 
-
   methods: {
 
-
-    getChartFish: function () {
+    getBarChartFish: function () {
       this.$http.get("/barchart", {
             params: {
               userId: this.userId,
             }
           }
       ).then(response => {
-        this.chartFishes = response.data
-        this.numberOfFish = this.$data.chartFishes.length
-        this.chartData.datasets[0].label = 'proov'
-        this.chartFishes = JSON.parse(this.chartFishes)
+        this.chartData.datasets[0].data = response.data
+        this.chartData.datasets[0].label = "Kasutaja kalad"
+        this.chartLoaded = true
+
 
       }).catch(error => {
         console.log(error)
       })
     },
+
   },
 
   beforeMount() {
-    this.getChartFish()
+    this.getBarChartFish()
   }
 
 
