@@ -7,7 +7,7 @@
 
     <div class="container m-3 p-3">
       <div v-for="aCatch in catches" :key="aCatch.catchId">
-        <CatchDetails :locations="locations" :aCatch="aCatch"/>
+        <CatchDetails :locations="locations" :aCatch="aCatch" @emitCatchUpdateSuccess="getUserCatches"/>
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@
 
 
 import NewCatch from "@/components/NewCatch.vue";
-import CatchDetails from "@/components/CatchDetails.vue";
+import CatchDetails from "@/views/CatchDetails.vue";
 
 export default {
   name: "CatchesView",
@@ -37,7 +37,6 @@ export default {
         }
       ],
 
-
       locations: [
         {
           locationId: 0,
@@ -46,6 +45,7 @@ export default {
           longitude: ''
         }
       ],
+
       locationId: 0,
       date: '',
       userId: sessionStorage.getItem('userId')

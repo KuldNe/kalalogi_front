@@ -1,6 +1,6 @@
 <template>
 
-  <div id="view" class="col-4 bg-dark just rounded-4" style="margin-top: 100px; margin-left: 30px; padding: 30px">
+  <div id="view" v-on:keydown.enter="login" class="col-4 bg-dark just rounded-4" style="margin-top: 100px; margin-left: 30px; padding: 30px">
 
     <AlertDanger :message="messageDanger"/>
 
