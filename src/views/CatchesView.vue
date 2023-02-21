@@ -4,7 +4,6 @@
       <NewCatch :user-id="userId"/>
     </div>
 
-
     <div class="container m-3 p-3">
       <div v-for="aCatch in catches" :key="aCatch.catchId">
         <CatchDetails :locations="locations" :aCatch="aCatch" @emitCatchUpdateSuccess="getUserCatches"/>

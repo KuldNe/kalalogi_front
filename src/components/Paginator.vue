@@ -1,15 +1,15 @@
 <template>
   <div aria-label="Page navigation example">
     <ul class="pagination">
-      <li class="page-item" v-if="pageNo>1" v-on:click="pageChange(pageNo-1)">
+      <li class="page-item" v-if="pageNo>1" v-on:click="pageChange(pageNo--)">
         <a class="page-link" href="#" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      <div v-for="page in totalPages" :key="page">
+      <div v-for="page in totalPages.slice(pageNo-1, pageNo+5)" :key="page">
         <li class="page-item"><a class="page-link" v-on:click="pageChange(page)">{{ page }}</a></li>
       </div>
-      <li class="page-item" v-if="pageNo<totalPages" v-on:click="pageChange(pageNo+1)">
+      <li class="page-item" v-if="pageNo<totalPages" v-on:click="pageChange(pageNo++)">
         <a class="page-link" href="#" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </a>
