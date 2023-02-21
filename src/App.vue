@@ -3,10 +3,11 @@
 
     <div class="col">
       <nav>
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark  shadow p-3 mb-5 " style="height: 100%">
+        <div
+            class="text-white bg-dark shadow p-3 mb-5 " style="height: 100%">
           <img class="rounded-circle me-2" width="150" height="150" src="./assets/kalalogo.png" />
 
-<!--              alt="" width="32" height="32" class="rounded-circle me-2">-->
+<!--          d-flex flex-column flex-shrink-0 p-3-->
 <!--          <strong><span class="fs-4 align-items-center">Kalalogi</span></strong>-->
           <hr>
           <div class="d-grid gap-2">
@@ -42,7 +43,7 @@
                       data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu icon-button">
                 <li class="dropdown-item" v-on:click="filterLocationId = 0">KÕIK</li>
                 <li v-for="location in locations" :key="location.locationId" class="dropdown-item"
                     v-on:click="filterLocationId=location.locationId">
@@ -62,7 +63,7 @@
                       data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu icon-button">
                 <li class="dropdown-item" v-on:click="filterSpeciesId = 0 ">KÕIK</li>
                 <li v-for="specie in species" :key="specie.speciesId" class="dropdown-item"
                     v-on:click="filterSpeciesId=specie.speciesId">

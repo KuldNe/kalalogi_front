@@ -29,8 +29,9 @@
           <br>
           <div class="input-group">
             <span class="input-group-text">Kommentaar</span>
-            <textarea v-model="fish.comment" class="form-control" aria-label="With textarea"></textarea>
-          </div>
+            <textarea v-model="fish.comment" class="form-control" maxlength="1000" style="overflow-y: scroll; height:80px" > </textarea>
+
+            </div>
           <br>
           <div>
             <span>Vabastatud    </span>
@@ -47,7 +48,7 @@
         </form>
       </div>
     </div>
-    <div id="view" class="col-5  bg-dark just rounded-2" style="margin-top: 100px; margin-left: 30px; padding: 30px">
+    <div id="view" class="col-5  bg-dark just rounded-2" style="margin-top: 10px; margin-left: 30px; padding: 30px">
       <span>Lisa pilt: </span>
       <image-input @emitBase64Event="emitBase64"/>
     </div>

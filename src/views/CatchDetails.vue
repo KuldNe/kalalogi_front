@@ -105,7 +105,7 @@ export default {
     },
 
     askDeleteCatch: function () {
-      if(confirm('Oled sa kindel, et soovid püügi kustutada?')) {
+      if(confirm('Oled sa kindel, et soovid püüki kustutada?')) {
         this.deleteCatch()
       } else {
 
