@@ -152,8 +152,6 @@ export default {
     },
 
     checkIfFishview: function () {
-      console.log('check if fish meetod')
-
       if (this.$route.name === 'homeRoute' || this.$route.name === 'userFishRoute') {
         this.isHomeView = true
       } else {

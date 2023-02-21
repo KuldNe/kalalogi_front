@@ -35,3 +35,8 @@ body {
 
 }
 
+.pagination .page-link {
+    background: #212529;
+    color: white;
+}
+

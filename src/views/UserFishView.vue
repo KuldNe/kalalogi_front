@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
     <div v-for="fish in fishDisplay.fishies">
       <fish-details :fish="fish"/>
     </div>
@@ -9,10 +10,11 @@
 
 <script>
 import FishDetails from "@/components/FishDetails.vue";
+import Paginator from "@/components/Paginator.vue";
 
 export default {
   name: "UserFishView",
-  components: {FishDetails},
+  components: {Paginator, FishDetails},
   props: {
     filterLocationId: Number,
     filterSpeciesId: Number,
@@ -24,6 +26,9 @@ export default {
     filterSpeciesId: function () {
       this.getFishies()
     },
+    pageNo: function () {
+      this.getFishies()
+    }
   },
 
   data: function () {
@@ -35,6 +40,8 @@ export default {
       userId: sessionStorage.getItem('userId'),
       catchId: this.$route.query.catchId,
 
+      pageNo: 1,
+      perPage: 4
     }
   },
 
@@ -53,7 +60,9 @@ export default {
             params: {
               userId: this.userId,
               waterbodyId: this.filterLocationId,
-              speciesId: this.filterSpeciesId
+              speciesId: this.filterSpeciesId,
+              pageNo: this.pageNo - 1,
+              perPage: this.perPage
             }
           }
       ).then(response => {
@@ -68,7 +77,9 @@ export default {
             params: {
               catchId: this.catchId,
               waterbodyId: this.filterLocationId,
-              speciesId: this.filterSpeciesId
+              speciesId: this.filterSpeciesId,
+              pageNo: this.pageNo - 1,
+              perPage: this.perPage
             }
           }
       ).then(response => {
@@ -77,11 +88,13 @@ export default {
         console.log(error)
       })
     },
+
+    setPageNo: function (pageNo) {
+      this.pageNo= pageNo
+    }
   },
 
   beforeMount() {
-    console.log('user fish vaade beforemount')
-
     this.getFishies()
   }
 

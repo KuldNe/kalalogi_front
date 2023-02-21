@@ -17,7 +17,7 @@
 
 
 import NewCatch from "@/components/NewCatch.vue";
-import CatchDetails from "@/views/CatchDetails.vue";
+import CatchDetails from "@/components/CatchDetails.vue";
 
 export default {
   name: "CatchesView",
