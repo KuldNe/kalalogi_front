@@ -7,7 +7,7 @@
         </a>
       </li>
       <div v-for="page in range(firstButtonNo, lastButtonNo)" :key="page">
-        <li class="page-item"><a class="page-link" v-on:click="pageChange(page)">{{ page }}</a></li>
+        <li class="page-item icon-button"><a class="page-link" v-on:click="pageChange(page)">{{ page }}</a></li>
       </div>
       <li class="page-item" v-if="pageNo<totalPages" v-on:click="pageChange(pageNo+1)">
         <a class="page-link" href="#" aria-label="Next">
@@ -26,6 +26,9 @@ export default {
   },
   watch: {
     pageNo() {
+      this.createPaginatorButtonValues(this.totalPages, this.pageNo)
+    },
+    totalPages() {
       this.createPaginatorButtonValues(this.totalPages, this.pageNo)
     }
   },
