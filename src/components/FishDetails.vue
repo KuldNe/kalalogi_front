@@ -55,7 +55,12 @@
               <font-awesome-icon class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
             </router-link>
           </div>
-        </div>
+          <div v-show="showEdit" class="col-2">
+            <span>Kustuta      </span>
+            <font-awesome-icon v-on:click="askDeleteFish" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" style="color: crimson" />
+          </div>
+          </div>
+
         <div v-else class="col">
           {{ fish.userName }}
         </div>
@@ -103,6 +108,29 @@ export default {
   },
 
   methods: {
+    askDeleteFish: function () {
+      if(confirm('Oled sa kindel, et soovid kala kustutada?')) {
+        this.deleteFish()
+      } else {
+      }
+    },
+
+    deleteFish: function () {
+      this.$http.delete("/fish", {
+            params: {
+              fishId: this.fish.fishId
+            }
+          }
+      ).then(response => {
+        this.messageSuccess= 'Kala kustutatud!'
+        setTimeout(() => {
+          this.$router.go()
+        }, 2000)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
     showImg(index) {
       this.index = index;
       if(this.hasPicture){

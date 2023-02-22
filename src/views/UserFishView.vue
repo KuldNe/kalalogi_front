@@ -1,8 +1,18 @@
 <template>
   <div>
-    <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
-    <div v-for="fish in fishDisplay.fishies">
-      <fish-details :fish="fish"/>
+    <div>
+      <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
+
+      <div v-if="catchId" class="col-12">
+        <span>Lisa kala      </span>
+        <router-link :to="{name: 'fishRoute', query: {catchId: catchId}}">
+          <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
+        </router-link>
+
+        <div v-for="fish in fishDisplay.fishies">
+          <fish-details :fish="fish"/>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -90,7 +100,7 @@ export default {
     },
 
     setPageNo: function (pageNo) {
-      this.pageNo= pageNo
+      this.pageNo = pageNo
     }
   },
 

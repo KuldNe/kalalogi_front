@@ -184,7 +184,6 @@ export default {
     emitBase64: function (pictureDataBase64) {
       this.fish.picture = pictureDataBase64
     }
-
   },
 
   beforeMount() {
