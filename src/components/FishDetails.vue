@@ -5,7 +5,7 @@
         <div class="col">
           <div class=""">
             <div v-for="(src, index) in imgs" :key="index" class="pictures" @click="() => showImg(index)">
-              <img v-if="hasPicture" class="img-thumbnail icon-button" width="200" height="200" :src="src.src" />
+              <img v-if="hasPicture" class="img-thumbnail icon-button" style="max-height: 200px" :src="src.src" />
 
               <img v-else src="../assets/images.png" class="img-thumbnail"
                    width="200" height="200" alt="Kalapilt">
