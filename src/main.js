@@ -17,6 +17,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUserSecret, fas, faR } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
+import { Bar } from 'vue-chartjs'
+
 // font awesome stuff
 library.add(faUserSecret, fas, faR, far)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
