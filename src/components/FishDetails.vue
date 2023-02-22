@@ -53,14 +53,12 @@
 
           <div class="row">
             <div v-show="showEdit" class="col">
-              <span>Muuda      </span>
               <router-link :to="{name: 'fishRoute', query: {fishId: fish.fishId }}">
-                <font-awesome-icon class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
+                <font-awesome-icon title='Muuda kala' class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
               </router-link>
             </div>
             <div v-show="showEdit" class="col">
-              <span>Kustuta      </span>
-              <font-awesome-icon v-on:click="askDeleteFish" class="fa-2xl icon-button" icon="fa-regular fa-trash-can"
+              <font-awesome-icon title='Kustuta kala'v-on:click="askDeleteFish" class="fa-2xl icon-button" icon="fa-regular fa-trash-can"
                                  style="color: crimson"/>
             </div>
           </div>

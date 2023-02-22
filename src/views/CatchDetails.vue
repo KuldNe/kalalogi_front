@@ -11,23 +11,19 @@
       </div>
 
       <div v-show="showButtons" class="col-2">
-        <span>Muuda      </span>
-        <font-awesome-icon v-on:click="toggleShowEdit" class="fa-2xl icon-button" icon="fa-regular fa-pen-to-square"/>
+        <font-awesome-icon title='Muuda püügikohta' v-on:click="toggleShowEdit" class="fa-2xl icon-button" icon="fa-regular fa-pen-to-square"/>
       </div>
       <div v-show="showButtons" class ="col-2">
-        <span>Kustuta    </span>
-        <font-awesome-icon v-on:click="askDeleteCatch" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" style="color:crimson" />
+        <font-awesome-icon title='Kustuta püügikoht' v-on:click="askDeleteCatch" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" style="color:crimson" />
       </div>
       <div v-show="showButtons" class="col-2">
-        <span>Vaata saaki</span>
         <router-link :to="{name: 'userFishRoute', query: {catchId: aCatch.catchId}}">
-        <font-awesome-icon class="fa-2xl" icon="fa-solid fa-fish-fins" />
+        <font-awesome-icon title='Vaata saaki' class="fa-2xl" icon="fa-solid fa-fish-fins" />
         </router-link>
       </div>
       <div v-show="showButtons" class="col-2">
-        <span>Lisa kala      </span>
         <router-link :to="{name: 'fishRoute', query: {catchId: aCatch.catchId}}">
-          <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
+          <font-awesome-icon title='Lisa kala' class="fa-2xl" icon="fa-regular fa-square-plus"/>
         </router-link>
       </div>
       <AlertDanger :message="messageDanger"/>

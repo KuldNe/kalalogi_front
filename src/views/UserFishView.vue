@@ -5,9 +5,8 @@
         <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
       </div>
       <div v-if="showAddFish" class="col">
-        <span>Lisa kala      </span>
         <router-link :to="{name: 'fishRoute', query: {catchId: catchId}}">
-          <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
+          <font-awesome-icon title='Lisa kala' class="fa-2xl" icon="fa-regular fa-square-plus"/>
         </router-link>
       </div>
     </div>
