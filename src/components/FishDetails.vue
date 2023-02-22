@@ -48,16 +48,21 @@
           Kommentaar: {{ fish.comment }}
         </div>
         <div v-if="activeUsername===fish.userName" class="col">
-          <div v-show="!showEdit" style="color:#198754">{{fish.userName}}</div>
-          <div v-show="showEdit" class="col">
-            <span>Muuda      </span>
-            <router-link :to="{name: 'fishRoute', query: {fishId: fish.fishId }}">
-              <font-awesome-icon class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
-            </router-link>
-          </div>
-          <div v-show="showEdit" class="col">
-            <span>Kustuta      </span>
-            <font-awesome-icon v-on:click="askDeleteFish" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" style="color: crimson" />
+          <div v-show="!showEdit" style="color:#0d6efc">{{ fish.userName }}</div>
+
+
+          <div class="row">
+            <div v-show="showEdit" class="col">
+              <span>Muuda      </span>
+              <router-link :to="{name: 'fishRoute', query: {fishId: fish.fishId }}">
+                <font-awesome-icon class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
+              </router-link>
+            </div>
+            <div v-show="showEdit" class="col">
+              <span>Kustuta      </span>
+              <font-awesome-icon v-on:click="askDeleteFish" class="fa-2xl icon-button" icon="fa-regular fa-trash-can"
+                                 style="color: crimson"/>
+            </div>
           </div>
           </div>
 
