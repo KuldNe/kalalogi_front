@@ -2,7 +2,7 @@
   <div>
     <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
     <div v-for="fish in fishDisplay.fishies">
-      <fish-details :fish="fish"/>
+      <fish-details :fish="fish" :key="fish.fishId"/>
     </div>
 
   </div>

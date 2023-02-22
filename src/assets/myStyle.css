@@ -18,7 +18,11 @@
 }
 
 body {
-    background-color: darkgrey;
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: linear-gradient(#9ba0a2, #40404d);
 }
 
 .column {
@@ -38,6 +42,14 @@ body {
 .pagination .page-link {
     background: #212529;
     color: white;
+}
+
+.thumbnail {
+    border: 0;
+}
+
+a:hover {
+    filter: brightness(0.6);
 }
 
 

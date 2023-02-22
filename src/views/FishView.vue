@@ -12,7 +12,7 @@
           <br>
           <span>Kalaliik</span>
           <select v-model="fish.speciesId" class="form-select" aria-label="Default select example">
-            <option v-for="specie in species" :value="specie.speciesId">{{ specie.speciesName }}</option>
+            <option v-for="specie in species" :key="specie.speciesId" :value="specie.speciesId">{{ specie.speciesName }}</option>
           </select>
           <br>
           <div class="input-group mb-3 col-2">
@@ -181,7 +181,8 @@ export default {
             }
           }
       ).then(response => {
-        this.$router.push({name: 'userFishRoute', query: {catchId: this.fish.catchId }} )
+        // this.$parent.
+        // this.$router.push({name: 'userFishRoute', query: {catchId: this.fish.catchId }} )
       }).catch(error => {
         console.log(error)
       })

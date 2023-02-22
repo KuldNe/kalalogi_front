@@ -5,7 +5,8 @@
         <div class="col">
           <div>
             <div v-for="(src, index) in imgs" :key="index" class="pictures" @click="() => showImg(index)">
-              <img v-if="hasPicture" class="img-thumbnail icon-button" :src="src.src"/>
+              <img v-if="hasPicture" class="img-thumbnail icon-button border-0"
+                   style="max-height: 200px; max-width: 200px" :src="src.src" alt="Kalapilt"/>
 
               <img v-else src="../assets/images.png" class="img-thumbnail"
                    width="200" height="200" alt="Kalapilt">
@@ -104,8 +105,8 @@ export default {
       index: 0,
       imgs: [
         {
-          src : this.fish.picture,
-          title : this.fish.speciesName + ": " + this.fish.locationName + ", " + this.fish.date
+          src: this.fish.picture,
+          title: this.fish.speciesName + ": " + this.fish.locationName + ", " + this.fish.date
         }
       ],
 
@@ -115,10 +116,6 @@ export default {
   },
 
   methods: {
-    setImgs: function () {
-      this.imgs[0].src = this.fish.picture
-      this.imgs[0].title = this.fish.speciesName + ": " + this.fish.locationName + ", " + this.fish.date
-    },
 
     askDeleteFish: function () {
       if (confirm('Oled sa kindel, et soovid kala kustutada?')) {
@@ -136,7 +133,7 @@ export default {
       ).then(response => {
         this.messageSuccess = 'Kala kustutatud!'
         setTimeout(() => {
-          this.$router.go()
+          this.$parent.getFishies()
         }, 2000)
       }).catch(error => {
         console.log(error)
@@ -154,10 +151,6 @@ export default {
       this.visible = false;
     },
   },
-
-  beforeMount() {
-    // this.setImgs()
-  }
 
 
 }

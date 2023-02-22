@@ -1,7 +1,7 @@
 <template>
   <div class="align-content-center">
 
-  <div class="col-6" style="margin-top: 8px; margin-left: 8px; padding: 8px">
+  <div  style="margin: 8px; padding: 8px">
     <Bar v-if="chartLoaded"  class="bg-light align-content-center "
          id="my-chart-id"
          :options="chartOptions"
