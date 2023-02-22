@@ -5,7 +5,7 @@
         <div class="col">
           <div class="">
             <div v-for="(src, index) in imgs" :key="index" class="pictures" @click="() => showImg(index)">
-              <img v-if="hasPicture" class="img-thumbnail icon-button" width="200" height="200" :src="src.src" />
+              <img v-if="hasPicture" class="img-thumbnail icon-button" width="200" height="200" :src="src.src"/>
 
               <img v-else src="../assets/images.png" class="img-thumbnail"
                    width="200" height="200" alt="Kalapilt">
@@ -44,18 +44,29 @@
             Vabastatud
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-4" maxlength="1000" style="overflow-y: auto; height:100px">
           Kommentaar: {{ fish.comment }}
         </div>
         <div v-if="activeUsername===fish.userName" class="col">
-          <div v-show="!showEdit" style="color:#198754">{{fish.userName}}</div>
-          <div v-show="showEdit" class="col">
-            <span>Muuda      </span>
-            <router-link :to="{name: 'fishRoute', query: {fishId: fish.fishId }}">
-              <font-awesome-icon class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
-            </router-link>
+          <div v-show="!showEdit" style="color:#198754">{{ fish.userName }}</div>
+
+
+          <div class="row">
+            <div v-show="showEdit" class="col">
+              <span>Muuda      </span>
+              <router-link :to="{name: 'fishRoute', query: {fishId: fish.fishId }}">
+                <font-awesome-icon class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
+              </router-link>
+            </div>
+            <div v-show="showEdit" class="col">
+              <span>Kustuta      </span>
+              <font-awesome-icon v-on:click="askDeleteFish" class="fa-2xl icon-button" icon="fa-regular fa-trash-can"
+                                 style="color: crimson"/>
+            </div>
           </div>
+
         </div>
+
         <div v-else class="col">
           {{ fish.userName }}
         </div>
@@ -71,29 +82,29 @@ export default {
   props: {
     fish: {
       comment: '',
-      date:"2023-02-24",
-      fishId:Number,
-      isPublic:Boolean,
-      length:Number,
-      locationName:'',
-      picture:'',
-      released:Boolean,
-      speciesName:'',
-      userName:'',
-      weight:Number,
+      date: "2023-02-24",
+      fishId: Number,
+      isPublic: Boolean,
+      length: Number,
+      locationName: '',
+      picture: '',
+      released: Boolean,
+      speciesName: '',
+      userName: '',
+      weight: Number,
     }
   },
 
   data: function () {
     return {
 
-      hasPicture: !(this.fish.picture==='' || this.fish.picture==null),
+      hasPicture: !(this.fish.picture === '' || this.fish.picture == null),
       visible: false,
       index: 0,
       imgs: [
         {
           src: this.fish.picture,
-          title: this.fish.speciesName+": " +this.fish.locationName +", " + this.fish.date,
+          title: this.fish.speciesName + ": " + this.fish.locationName + ", " + this.fish.date,
         }
       ],
 
@@ -103,9 +114,32 @@ export default {
   },
 
   methods: {
+    askDeleteFish: function () {
+      if (confirm('Oled sa kindel, et soovid kala kustutada?')) {
+        this.deleteFish()
+      } else {
+      }
+    },
+
+    deleteFish: function () {
+      this.$http.delete("/fish", {
+            params: {
+              fishId: this.fish.fishId
+            }
+          }
+      ).then(response => {
+        this.messageSuccess = 'Kala kustutatud!'
+        setTimeout(() => {
+          this.$router.go()
+        }, 2000)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
     showImg(index) {
       this.index = index;
-      if(this.hasPicture){
+      if (this.hasPicture) {
         this.visible = true;
       }
 

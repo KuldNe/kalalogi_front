@@ -29,8 +29,9 @@
           <br>
           <div class="input-group">
             <span class="input-group-text">Kommentaar</span>
-            <textarea v-model="fish.comment" class="form-control" aria-label="With textarea"></textarea>
-          </div>
+            <textarea v-model="fish.comment" maxlength="1000" style="overflow-y: auto; height: 100px" > </textarea>
+
+            </div>
           <br>
           <div>
             <span>Vabastatud    </span>
