@@ -10,13 +10,13 @@
           <strong><span class="fs-4 align-items-center">Kalalogi</span></strong>
           <hr>
           <div class="d-grid gap-2">
-            <button type="button" class="btn btn-secondary btn-sm">
+            <button type="button" class="btn btn-secondary btn-sm" v-on:click="resetFishFilters">
               <router-link to="/">Püügiandmed</router-link>
             </button>
             <button v-if="!isUser && !isAdmin" type="button" class="btn btn-secondary btn-sm">
               <router-link to="/login">Logi sisse/ Registreeru</router-link>
             </button>
-            <button v-if="isUser" type="button" class="btn btn-secondary btn-sm">
+            <button v-if="isUser" type="button" class="btn btn-secondary btn-sm" v-on:click="resetFishFilters">
               <router-link to="/userfish">Minu kalad</router-link>
             </button>
             <button v-if="isUser" type="button" class="btn btn-secondary btn-sm">
@@ -25,9 +25,7 @@
             <button v-if="isUser || isAdmin" v-on:click="logout" type="button" class="btn btn-secondary btn-sm">
               Logi välja
             </button>
-
           </div>
-
 
           <hr>
 
