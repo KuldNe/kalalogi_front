@@ -1,7 +1,7 @@
 <template>
   <div>
-
-    <div v-for="fish in fishies">
+    <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
+    <div v-for="fish in fishDisplay.fishies">
       <fish-details :fish="fish"/>
     </div>
 
@@ -12,14 +12,16 @@
 
 // @ is an alias to /src
 import FishDetails from "@/components/FishDetails.vue";
+import Paginator from "@/components/Paginator.vue";
 
 export default {
   name: 'HomeView',
-  components: {FishDetails},
+  components: {Paginator, FishDetails},
   props: {
     filterLocationId: Number,
     filterSpeciesId: Number,
   },
+
   watch: {
     filterLocationId: function () {
       this.getFishies()
@@ -27,12 +29,20 @@ export default {
     filterSpeciesId: function () {
       this.getFishies()
     },
+    pageNo: function () {
+      this.getFishies()
+    }
   },
 
   data: function () {
     return {
-      fishies: [],
+      fishDisplay: {
+        totalPages: Number,
+        fishies: []
+      },
 
+      pageNo: 1,
+      perPage: 4
     }
   },
 
@@ -42,15 +52,21 @@ export default {
       this.$http.get("/fishies", {
             params: {
               waterbodyId: this.filterLocationId,
-              speciesId: this.filterSpeciesId
+              speciesId: this.filterSpeciesId,
+              pageNo: this.pageNo - 1,
+              perPage: this.perPage
             }
           }
       ).then(response => {
-        this.fishies = response.data
+        this.fishDisplay = response.data
       }).catch(error => {
         console.log(error)
       })
     },
+
+    setPageNo: function (pageNo) {
+      this.pageNo= pageNo
+    }
   },
 
   beforeMount() {

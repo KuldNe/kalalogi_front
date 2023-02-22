@@ -32,8 +32,10 @@ export default {
         datasets: [
           {
             label: '',
-            data: [
-
+            data: [  {
+              speciesName: "string",
+              countFish: 15
+            }
             ]
           },
         ],
@@ -65,9 +67,8 @@ export default {
           }
       ).then(response => {
         this.chartData.datasets[0].data = response.data
-        this.chartData.datasets[0].label = "Kasutaja kalad"
+        this.chartData.datasets[0].label = 'Kasutaja ' + sessionStorage.getItem('userName') + ' kalad'
         this.chartLoaded = true
-
 
       }).catch(error => {
         console.log(error)

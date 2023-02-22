@@ -1,24 +1,20 @@
 <template>
-  <FishDetails/>
+  <div>
+  <div v-for="page in totalPages" :key="page">
+    <span>{{ page }}</span>
+  </div>
+  </div>
 </template>
 
 <script>
 
-import FishDetails from "@/components/FishDetails.vue";
 
 export default {
   name: "TestView",
-  components: {FishDetails},
+  components: {},
   data: function () {
     return {
-        speciesName: '',
-        length: 0,
-        weight: 0,
-        catchDate: '10-09-22',
-        waterbody: '',
-        userComment: '',
-        wasReleased: true,
-        picture: '',
+       totalPages:10
 
       }
     }

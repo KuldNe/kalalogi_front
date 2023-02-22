@@ -76,7 +76,8 @@
       </nav>
     </div>
     <div id="main">
-      <router-view :filter-location-id="filterLocationId" :filter-species-id="filterSpeciesId"  @emitLoginSuccessEvent="updateUserAndReload"/>
+      <router-view :filter-location-id="filterLocationId" :filter-species-id="filterSpeciesId"
+                   @emitLoginSuccessEvent="updateUserAndReload"/>
     </div>
 
   </div>
@@ -151,13 +152,16 @@ export default {
     },
 
     checkIfFishview: function () {
-      console.log('check if fish meetod')
-
       if (this.$route.name === 'homeRoute' || this.$route.name === 'userFishRoute') {
         this.isHomeView = true
       } else {
         this.isHomeView = false
       }
+    },
+
+    resetFishFilters: function () {
+      this.filterLocationId = 0
+      this.filterSpeciesId = 0
     }
   },
   beforeMount() {
@@ -169,10 +173,8 @@ export default {
   },
   watch: {
     $route() {
-      console.log('route algus')
       this.checkIfFishview()
-      console.log('route peale meetodit')
-
+      this.resetFishFilters()
     }
   }
 

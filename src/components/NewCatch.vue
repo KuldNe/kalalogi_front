@@ -100,7 +100,7 @@ export default {
     timeoutAndReloadPage: function (timeOut) {
       setTimeout(() => {
         this.$router.go(0)
-      }, timeOut);
+      }, timeOut)
     },
 
     newLocationOff: function () {
