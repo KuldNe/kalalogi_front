@@ -3,7 +3,7 @@
     <div class="container" style="margin-top: 8px; margin-left: 8px; padding: 8px">
       <div @mouseover="showEdit=true" @mouseout="showEdit=false" class="align-items-center row text-white bg-dark">
         <div class="col">
-          <div class="">
+          <div class=""">
             <div v-for="(src, index) in imgs" :key="index" class="pictures" @click="() => showImg(index)">
               <img v-if="hasPicture" class="img-thumbnail icon-button" width="200" height="200" :src="src.src" />
 
@@ -55,7 +55,7 @@
               <font-awesome-icon class="fa-2xl" icon="fa-regular fa-pen-to-square"/>
             </router-link>
           </div>
-          <div v-show="showEdit" class="col-2">
+          <div v-show="showEdit" class="col">
             <span>Kustuta      </span>
             <font-awesome-icon v-on:click="askDeleteFish" class="fa-2xl icon-button" icon="fa-regular fa-trash-can" style="color: crimson" />
           </div>
