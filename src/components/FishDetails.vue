@@ -2,7 +2,6 @@
   <div>
     <div class="container" style="margin-top: 8px; margin-left: 8px; padding: 8px">
       <div @mouseover="showEdit=true" @mouseout="showEdit=false" class="align-items-center row text-white bg-dark">
-
         <div class="col">
           <div class="">
             <div v-for="(src, index) in imgs" :key="index" class="pictures" @click="() => showImg(index)">
