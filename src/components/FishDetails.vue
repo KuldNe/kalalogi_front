@@ -58,7 +58,7 @@
               </router-link>
             </div>
             <div v-show="showEdit" class="col">
-              <font-awesome-icon title='Kustuta kala'v-on:click="askDeleteFish" class="fa-2xl icon-button" icon="fa-regular fa-trash-can"
+              <font-awesome-icon title='Kustuta kala'v-on:click="askDeleteFish" class="fa-2xl icon-button button:hover" icon="fa-regular fa-trash-can"
                                  style="color: crimson"/>
             </div>
           </div>
