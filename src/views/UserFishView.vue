@@ -1,6 +1,16 @@
 <template>
   <div>
-    <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
+    <div class="row" style="margin: 1% ">
+      <div class="col">
+        <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
+      </div>
+      <div v-if="showAddFish" class="col">
+        <span>Lisa kala      </span>
+        <router-link :to="{name: 'fishRoute', query: {catchId: catchId}}">
+          <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
+        </router-link>
+      </div>
+    </div>
     <div v-for="fish in fishDisplay.fishies">
       <fish-details :fish="fish"/>
     </div>
@@ -40,6 +50,8 @@ export default {
       userId: sessionStorage.getItem('userId'),
       catchId: this.$route.query.catchId,
 
+      showAddFish: false,
+
       pageNo: 1,
       perPage: 4
     }
@@ -52,6 +64,7 @@ export default {
         this.getUserFish()
       } else {
         this.getCatchFish()
+        this.showAddFish = true
       }
     },
 
@@ -90,7 +103,7 @@ export default {
     },
 
     setPageNo: function (pageNo) {
-      this.pageNo= pageNo
+      this.pageNo = pageNo
     }
   },
 

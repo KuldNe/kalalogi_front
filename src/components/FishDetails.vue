@@ -5,7 +5,7 @@
         <div class="col">
           <div class="">
             <div v-for="(src, index) in imgs" :key="index" class="pictures" @click="() => showImg(index)">
-              <img v-if="hasPicture" class="img-thumbnail icon-button" width="200" height="200" :src="src.src"/>
+              <img v-if="hasPicture" class="img-thumbnail icon-button"  :src="src.src"/>
 
               <img v-else src="../assets/images.png" class="img-thumbnail"
                    width="200" height="200" alt="Kalapilt">
@@ -48,7 +48,7 @@
           Kommentaar: {{ fish.comment }}
         </div>
         <div v-if="activeUsername===fish.userName" class="col">
-          <div v-show="!showEdit" style="color:#198754">{{ fish.userName }}</div>
+          <div v-show="!showEdit" style="color:#0d6efc">{{ fish.userName }}</div>
 
 
           <div class="row">
