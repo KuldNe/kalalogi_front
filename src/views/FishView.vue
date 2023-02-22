@@ -23,7 +23,7 @@
           <div class="input-group mb-3 col-2">
             <span class="input-group-text">kaal</span>
             <input v-model="fish.weight" type="number" min="0" class="form-control">
-            <span class="input-group-text">kg</span>
+            <span class="input-group-text">g</span>
           </div>
 
           <br>
