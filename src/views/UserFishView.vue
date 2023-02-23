@@ -1,18 +1,24 @@
 <template>
   <div>
+
     <div class="row" style="margin: 1% ">
-      <div class="col">
+      <div class="col" v-if="hasFish">
         <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
       </div>
-      <div v-if="showAddFish" class="col">
+      <div v-if="showAddFish"  class="col">
+        <span>Lisa kala      </span>
         <router-link :to="{name: 'fishRoute', query: {catchId: catchId}}">
-          <font-awesome-icon title='Lisa kala' class="fa-2xl" icon="fa-regular fa-square-plus"/>
+          <font-awesome-icon class="fa-2xl" icon="fa-regular fa-square-plus"/>
         </router-link>
       </div>
     </div>
-    <div v-for="fish in fishDisplay.fishies">
+    <div v-if="!hasFish">
+      <img src= "../assets/nofishforund.gif"/>
+    </div>
+    <div v-if="hasFish" v-for="fish in fishDisplay.fishies">
       <fish-details :fish="fish" :key="fish.fishId"/>
     </div>
+
   </div>
 </template>
 
@@ -37,7 +43,11 @@ export default {
     },
     pageNo: function () {
       this.getFishies()
+    },
+    fishDisplay: function () {
+      this.checkFish()
     }
+
   },
 
   data: function () {
@@ -51,12 +61,17 @@ export default {
 
       showAddFish: false,
 
+      hasFish: true,
+
       pageNo: 1,
       perPage: 4
     }
   },
 
   methods: {
+    checkFish: function () {
+      this.hasFish = this.fishDisplay.fishies.length > 0
+    },
 
     getFishies: function () {
       if (this.catchId == null) {
@@ -79,6 +94,7 @@ export default {
           }
       ).then(response => {
         this.fishDisplay = response.data
+        this.checkFish()
       }).catch(error => {
         console.log(error)
       })
@@ -96,6 +112,7 @@ export default {
           }
       ).then(response => {
         this.fishDisplay = response.data
+        this.checkFish()
       }).catch(error => {
         console.log(error)
       })
