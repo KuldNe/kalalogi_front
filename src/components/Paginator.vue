@@ -46,8 +46,8 @@ export default {
   },
 
   methods: {
-    pageChange: function (NewPageNo) {
-      this.$parent.setPageNo(NewPageNo)
+    pageChange: function (newPageNo) {
+      this.$parent.setPageNo(newPageNo)
     },
     createPaginatorButtonValues: function (totalPages, pageNo) {
       let window = 5

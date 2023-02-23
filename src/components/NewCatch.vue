@@ -11,7 +11,7 @@
       <div class="col-5">
         <span>Püügikoht</span>
         <select v-model="locationId" class="form-select" aria-label="Default select example">
-          <option v-for="location in locations" :value="location.locationId">{{ location.locationName }}</option>
+          <option v-for="location in locations" :key="location.locationId" :value="location.locationId">{{ location.locationName }}</option>
         </select>
       </div>
       <div class="col">

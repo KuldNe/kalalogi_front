@@ -5,10 +5,10 @@
       <nav>
         <div
             class="text-white bg-dark shadow p-3 mb-5 " style="height: 100%">
-          <img class="rounded-circle me-2" width="150" height="150" src="./assets/kalalogo.png" />
+          <img class="rounded-circle me-2" width="150" height="150" src="./assets/kalalogo.png"/>
 
-<!--          d-flex flex-column flex-shrink-0 p-3-->
-<!--          <strong><span class="fs-4 align-items-center">Kalalogi</span></strong>-->
+          <!--          d-flex flex-column flex-shrink-0 p-3-->
+          <!--          <strong><span class="fs-4 align-items-center">Kalalogi</span></strong>-->
           <hr>
           <div class="d-grid gap-2">
             <button type="button" class="btn btn-secondary btn-sm" v-on:click="resetFishFilters">
@@ -23,6 +23,9 @@
             <button v-if="isUser" type="button" class="btn btn-secondary btn-sm">
               <router-link to="/catches">Minu püügid</router-link>
             </button>
+            <button v-if="isUser" type="button" class="btn btn-secondary btn-sm">
+              <router-link to="/chart">Püügistatistika</router-link>
+            </button>
             <button v-if="isUser || isAdmin" v-on:click="logout" type="button" class="btn btn-secondary btn-sm">
               Logi välja
             </button>
@@ -30,7 +33,7 @@
 
           <hr>
 
-          <div v-if="isHomeView" class="row">
+          <div v-if="isFishView" class="row">
             <span class="fs-6">Filtreeri:</span>
 
             <div class="btn-group">
@@ -69,12 +72,26 @@
                 </li>
               </ul>
             </div>
+            <div v-for="location in locations" :key="location.locationId">
+              <span v-if="filterLocationId===location.locationId" class="badge rounded-pill bg-secondary">
+                {{location.locationName }}
+                <font-awesome-icon v-on:click="filterLocationId=0" icon="fa-regular fa-circle-xmark" />
+              </span>
+            </div>
+            <div v-for="specie in species" :key="species.speciesId">
+              <span v-if="filterSpeciesId===specie.speciesId" class="badge rounded-pill bg-secondary">
+                {{specie.speciesName }}
+                <font-awesome-icon v-on:click="filterSpeciesId=0" icon="fa-regular fa-circle-xmark" />
+              </span>
+            </div>
           </div>
+
         </div>
       </nav>
     </div>
     <div id="main">
       <router-view :filter-location-id="filterLocationId" :filter-species-id="filterSpeciesId"
+                   :key="generateKey(filterLocationId, filterSpeciesId)"
                    @emitLoginSuccessEvent="updateUserAndReload"/>
     </div>
 
@@ -90,7 +107,7 @@ export default {
     return {
       isUser: false,
       isAdmin: false,
-      isHomeView: true,
+      isFishView: true,
 
       filterLocationId: 0,
       filterSpeciesId: 0,
@@ -114,21 +131,29 @@ export default {
   },
 
   methods: {
+
+    generateKey(item, index) {
+      const uniqueKey = `${item}-${index}`;
+      return uniqueKey;
+    },
+
     logout: function () {
       sessionStorage.clear()
       this.roleType = sessionStorage.getItem("roleType")
       this.$router.push({name: 'homeRoute'})
       this.$router.go()
     },
+
     updateUserAccess: function () {
       sessionStorage.getItem("roleType") === 'user' ? this.isUser = true : this.isUser = false
       sessionStorage.getItem("roleType") === 'admin' ? this.isAdmin = true : this.isAdmin = false
     },
+
     updateUserAndReload: function () {
       this.updateUserAccess()
       this.$router.push({name: 'homeRoute'})
-      // this.$router.go()
     },
+
     getAllLocations: function () {
       this.$http.get("/waterbodies")
           .then(response => {
@@ -150,11 +175,7 @@ export default {
     },
 
     checkIfFishview: function () {
-      if (this.$route.name === 'homeRoute' || this.$route.name === 'userFishRoute') {
-        this.isHomeView = true
-      } else {
-        this.isHomeView = false
-      }
+      this.isFishView = this.$route.name === 'homeRoute' || this.$route.name === 'userFishRoute';
     },
 
     resetFishFilters: function () {
@@ -208,10 +229,6 @@ nav {
 nav a {
   font-weight: bold;
   color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: white;
 }
 </style>
 

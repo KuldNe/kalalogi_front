@@ -18,7 +18,11 @@
 }
 
 body {
-    background-color: darkgrey;
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: linear-gradient(#9ba0a2, #40404d);
 }
 
 .column {
@@ -40,13 +44,16 @@ body {
     color: white;
 }
 
-.img-thumbnail{
-    background: none;
-    border: none;
+.thumbnail {
+    border: 0;
 }
 
-.icon-button:hover {
-    color: white;
-    transition: 0.7s;
+a:hover {
+    filter: brightness(0.6);
 }
+
+.fa-circle-xmark:hover{
+    color:red !important;
+}
+
 
