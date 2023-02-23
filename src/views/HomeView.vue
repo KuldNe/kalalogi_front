@@ -1,10 +1,15 @@
 <template>
   <div>
-    <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
-    <div v-for="fish in fishDisplay.fishies">
-      <fish-details :fish="fish" :key="fish.fishId"/>
+    <div v-if="fishDisplay.fishies.length===0">
+    Nõu daata
     </div>
 
+    <div v-else>
+      <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
+      <div v-for="fish in fishDisplay.fishies">
+        <fish-details :fish="fish" :key="fish.fishId"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -65,7 +70,7 @@ export default {
     },
 
     setPageNo: function (pageNo) {
-      this.pageNo= pageNo
+      this.pageNo = pageNo
     }
   },
 
