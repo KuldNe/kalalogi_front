@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-if="fishDisplay.fishies.length===0">
-    Nõu daata
+    <div v-if="!hasFish">
+      <img src="../assets/nofishforund.gif"/>
     </div>
 
-    <div v-else>
+    <div v-if="hasFish">
       <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
       <div v-for="fish in fishDisplay.fishies">
         <fish-details :fish="fish" :key="fish.fishId"/>
@@ -36,15 +36,21 @@ export default {
     },
     pageNo: function () {
       this.getFishies()
-    }
+    },
+    fishDisplay: function () {
+      this.checkFish()
+    },
+
   },
 
   data: function () {
     return {
       fishDisplay: {
-        totalPages: Number,
+        totalPages: 0,
         fishies: []
       },
+
+      hasFish: true,
 
       pageNo: 1,
       perPage: 4
@@ -52,7 +58,9 @@ export default {
   },
 
   methods: {
-
+    checkFish: function () {
+      this.hasFish = this.fishDisplay.fishies.length > 0
+    },
     getFishies: function () {
       this.$http.get("/fishies", {
             params: {

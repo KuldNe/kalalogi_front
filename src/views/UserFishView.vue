@@ -44,9 +44,7 @@ export default {
     pageNo: function () {
       this.getFishies()
     },
-    fishDisplay: function () {
-      this.checkFish()
-    }
+
 
   },
 
