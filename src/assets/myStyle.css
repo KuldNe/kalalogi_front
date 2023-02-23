@@ -46,7 +46,7 @@ body {
 }
 
 .icon-button:hover {
-    background-color:#002ead;
+    color: white;
     transition: 0.7s;
 }
 
