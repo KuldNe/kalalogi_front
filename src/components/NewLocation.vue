@@ -46,27 +46,37 @@ export default {
       this.messageSuccess = ''
 
       this.formatCoordinates()
+      if (this.validateCoordinates()){
+        this.$http.post("/waterbodies", this.newLocation
+        ).then(response => {
+          this.messageSuccess = 'Asukoht edukalt lisatud!'
+          setTimeout(() => {
+            this.$emit('emitAddLocationSuccess')
+            this.$router.go()
+          }, 1000)
+        }).catch(error => {
+          if (error.response.data.status === 400) {
+            this.messageDanger = 'Viga sisestamisel, kontrolli sisestatud andmete vormingut'
+          }
+        })
+      } else {
+        this.messageDanger = 'Kontrolli koordinaatide formaati'
+      }
 
-      this.$http.post("/waterbodies", this.newLocation
-      ).then(response => {
-        this.messageSuccess = 'Asukoht edukalt lisatud!'
-        setTimeout(() => {
-          this.$emit('emitAddLocationSuccess', false)
-          this.$router.go()
-        }, 1000)
-      }).catch(error => {
-        if (error.response.data.status === 400) {
-          this.messageDanger = 'Viga sisestamisel, kontrolli sisestatud andmete vormingut'
-        }
-      })
     },
     formatCoordinates: function () {
       this.coordArray = this.coordinates.split(",", 2)
       this.newLocation.latitude = Number(this.coordArray[0])
       this.newLocation.longitude = Number(this.coordArray[1])
+    },
+
+    validateCoordinates: function () {
+      return (this.newLocation.latitude >= -90 && this.newLocation.latitude <= 90
+          && this.newLocation.longitude >= 0 && this.newLocation.longitude <= 180)
     }
 
   }
+
 }
 </script>
 

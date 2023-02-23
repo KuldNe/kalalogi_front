@@ -3,7 +3,7 @@
   <div id="view" class="col-4 bg-dark just rounded-4" style="margin-top: 100px; margin-left: 30px; padding: 30px">
 
     <AlertDanger :message="messageDanger"/>
-    <form class="px-4 py-3">
+    <div class="px-4 py-3" v-on:keydown.enter="validateAndRegister">
       <div class="mb-3">
         <label class="form-label">Kasutajanimi:</label>
         <input v-model="username" type="text" class="form-control" placeholder="kasutajanimi">
@@ -21,7 +21,7 @@
         <input v-model="confirmpassword" type="password" class="form-control" placeholder="kinnita parool">
       </div>
       <button v-on:click="validateAndRegister" type="submit" class="btn btn-secondary">Loo kasutaja</button>
-    </form>
+    </div>
 
   </div>
 </template>
@@ -75,12 +75,13 @@ export default {
       ).then(response => {
         this.loginResponse = response.data
         sessionStorage.setItem('userId', this.loginResponse.userId)
+        sessionStorage.setItem('userName', this.loginResponse.userName)
         sessionStorage.setItem('roleType', this.loginResponse.roleType)
         localStorage.setItem('lang', 'EST')
         this.$emit('emitLoginSuccessEvent')
       }).catch(error => {
         this.apiError = error.response.data
-        this.messageDanger = this.apiError.error
+        this.messageDanger = this.apiError.message
       })
     }
 
