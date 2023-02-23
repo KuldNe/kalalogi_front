@@ -52,4 +52,8 @@ a:hover {
     filter: brightness(0.6);
 }
 
+.fa-circle-xmark:hover{
+    color:red !important;
+}
+
 
