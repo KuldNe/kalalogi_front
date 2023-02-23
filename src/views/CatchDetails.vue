@@ -1,7 +1,7 @@
 <template>
   <div @mouseover="showButtons=true" @mouseout="showButtons=false">
     <div class="align-items-center row text-white bg-dark"
-         style="margin-top: 10px; margin-left: 10px; padding: 15px">
+         style="margin-top: 10px; margin-left: 10px; padding: 15px; height:60px">
       <div class="col-2">
         <span>Kuupäev: {{ aCatch.catchDate }}</span>
       </div>

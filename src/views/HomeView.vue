@@ -1,15 +1,17 @@
 <template>
   <div>
+
     <div v-if="fishDisplay.fishies.length===0">
-    Nõu daata
+      <img src= "../assets/nofishforund.gif"/>
     </div>
 
     <div v-else>
-      <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
-      <div v-for="fish in fishDisplay.fishies">
-        <fish-details :fish="fish" :key="fish.fishId"/>
-      </div>
+    <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
+    <div v-for="fish in fishDisplay.fishies">
+      <fish-details :fish="fish" :key="fish.fishId"/>
     </div>
+    </div>
+
   </div>
 </template>
 
@@ -70,7 +72,7 @@ export default {
     },
 
     setPageNo: function (pageNo) {
-      this.pageNo = pageNo
+      this.pageNo= pageNo
     }
   },
 
