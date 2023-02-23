@@ -13,7 +13,7 @@
       <div class="col-5">
         <span>Püügikoht</span>
         <select v-model="editLocationId" class="form-select" aria-label="catchi püügikoht">
-          <option v-for="location in locations" :value="location.locationId">{{ location.locationName }}</option>
+          <option v-for="location in locations" :key="location.locationId" :value="location.locationId">{{ location.locationName }}</option>
         </select>
       </div>
 

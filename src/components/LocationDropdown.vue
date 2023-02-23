@@ -1,6 +1,6 @@
 <template>
   <select class="form-select" aria-label="Default select example">
-    <option v-for="location in locations" :value="location.locationId">{{ location.locationName }}</option>
+    <option v-for="location in locations" :key="location.locationId" :value="location.locationId">{{ location.locationName }}</option>
   </select>
 </template>
 

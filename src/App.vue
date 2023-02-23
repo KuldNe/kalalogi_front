@@ -3,31 +3,33 @@
 
     <div class="col">
       <nav>
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark  shadow p-3 mb-5 " style="height: 100%">
-          <img
-              src="https://i.fbcd.co/products/original/4dd08023a2500a7efaf141af098d33ad7832bd3f45350ff0df4a4e317a62ce83.jpg"
-              alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong><span class="fs-4 align-items-center">Kalalogi</span></strong>
+        <div
+            class="text-white bg-dark shadow p-3 mb-5 " style="height: 100%">
+          <img class="rounded-circle me-2" width="150" height="150" src="./assets/kalalogo.png"/>
+
+          <!--          d-flex flex-column flex-shrink-0 p-3-->
+          <!--          <strong><span class="fs-4 align-items-center">Kalalogi</span></strong>-->
           <hr>
           <div class="d-grid gap-2">
-            <button type="button" class="btn btn-secondary btn-sm">
+            <button type="button" class="btn btn-secondary btn-sm" v-on:click="resetFishFilters">
               <router-link to="/">Püügiandmed</router-link>
             </button>
             <button v-if="!isUser && !isAdmin" type="button" class="btn btn-secondary btn-sm">
               <router-link to="/login">Logi sisse/ Registreeru</router-link>
             </button>
-            <button v-if="isUser" type="button" class="btn btn-secondary btn-sm">
+            <button v-if="isUser" type="button" class="btn btn-secondary btn-sm" v-on:click="resetFishFilters">
               <router-link to="/userfish">Minu kalad</router-link>
             </button>
             <button v-if="isUser" type="button" class="btn btn-secondary btn-sm">
               <router-link to="/catches">Minu püügid</router-link>
             </button>
+            <button v-if="isUser" type="button" class="btn btn-secondary btn-sm">
+              <router-link to="/chart">Püügistatistika</router-link>
+            </button>
             <button v-if="isUser || isAdmin" v-on:click="logout" type="button" class="btn btn-secondary btn-sm">
               Logi välja
             </button>
-
           </div>
-
 
           <hr>
 
@@ -42,7 +44,7 @@
                       data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu icon-button">
                 <li class="dropdown-item" v-on:click="filterLocationId = 0">KÕIK</li>
                 <li v-for="location in locations" :key="location.locationId" class="dropdown-item"
                     v-on:click="filterLocationId=location.locationId">
@@ -62,7 +64,7 @@
                       data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
               </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu icon-button">
                 <li class="dropdown-item" v-on:click="filterSpeciesId = 0 ">KÕIK</li>
                 <li v-for="specie in species" :key="specie.speciesId" class="dropdown-item"
                     v-on:click="filterSpeciesId=specie.speciesId">
@@ -77,6 +79,7 @@
     </div>
     <div id="main">
       <router-view :filter-location-id="filterLocationId" :filter-species-id="filterSpeciesId"
+                   :key="generateKey(filterLocationId, filterSpeciesId)"
                    @emitLoginSuccessEvent="updateUserAndReload"/>
     </div>
 
@@ -116,21 +119,29 @@ export default {
   },
 
   methods: {
+
+    generateKey(item, index) {
+      const uniqueKey = `${item}-${index}`;
+      return uniqueKey;
+    },
+
     logout: function () {
       sessionStorage.clear()
       this.roleType = sessionStorage.getItem("roleType")
       this.$router.push({name: 'homeRoute'})
       this.$router.go()
     },
+
     updateUserAccess: function () {
       sessionStorage.getItem("roleType") === 'user' ? this.isUser = true : this.isUser = false
       sessionStorage.getItem("roleType") === 'admin' ? this.isAdmin = true : this.isAdmin = false
     },
+
     updateUserAndReload: function () {
       this.updateUserAccess()
       this.$router.push({name: 'homeRoute'})
-      // this.$router.go()
     },
+
     getAllLocations: function () {
       this.$http.get("/waterbodies")
           .then(response => {
@@ -152,11 +163,7 @@ export default {
     },
 
     checkIfFishview: function () {
-      if (this.$route.name === 'homeRoute' || this.$route.name === 'userFishRoute') {
-        this.isHomeView = true
-      } else {
-        this.isHomeView = false
-      }
+      this.isHomeView = this.$route.name === 'homeRoute' || this.$route.name === 'userFishRoute';
     },
 
     resetFishFilters: function () {
@@ -210,10 +217,6 @@ nav {
 nav a {
   font-weight: bold;
   color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: white;
 }
 </style>
 

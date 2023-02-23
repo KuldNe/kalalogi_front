@@ -12,7 +12,7 @@
           <br>
           <span>Kalaliik</span>
           <select v-model="fish.speciesId" class="form-select" aria-label="Default select example">
-            <option v-for="specie in species" :value="specie.speciesId">{{ specie.speciesName }}</option>
+            <option v-for="specie in species" :key="specie.speciesId" :value="specie.speciesId">{{ specie.speciesName }}</option>
           </select>
           <br>
           <div class="input-group mb-3 col-2">
@@ -23,14 +23,15 @@
           <div class="input-group mb-3 col-2">
             <span class="input-group-text">kaal</span>
             <input v-model="fish.weight" type="number" min="0" class="form-control">
-            <span class="input-group-text">kg</span>
+            <span class="input-group-text">g</span>
           </div>
 
           <br>
           <div class="input-group">
             <span class="input-group-text">Kommentaar</span>
-            <textarea v-model="fish.comment" class="form-control" aria-label="With textarea"></textarea>
-          </div>
+            <textarea v-model="fish.comment" maxlength="1000" style="overflow-y: auto; height: 100px" > </textarea>
+
+            </div>
           <br>
           <div>
             <span>Vabastatud    </span>
@@ -180,7 +181,8 @@ export default {
             }
           }
       ).then(response => {
-        this.$router.push({name: 'userFishRoute', query: {catchId: this.fish.catchId }} )
+        // this.$parent.
+        // this.$router.push({name: 'userFishRoute', query: {catchId: this.fish.catchId }} )
       }).catch(error => {
         console.log(error)
       })

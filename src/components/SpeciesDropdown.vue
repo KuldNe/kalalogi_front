@@ -1,6 +1,6 @@
 <template>
   <select class="form-select" aria-label="Default select example">
-    <option v-for="fish in species" :value="fish.speciesId">{{ fish.speciesName }}</option>
+    <option v-for="fish in species" :key="fish.speciesId" :value="fish.speciesId">{{ fish.speciesName }}</option>
   </select>
 </template>
 
