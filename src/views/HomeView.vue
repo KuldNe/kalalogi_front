@@ -1,11 +1,17 @@
 <template>
-  <div>
+<div>
+    <div v-if="fishDisplay.fishies.length === 0">
+      <img src= "../assets/nofishforund.gif"/>
+    </div>
+
+    <div>
     <Paginator :total-pages="fishDisplay.totalPages" :page-no="pageNo"/>
+    </div>
     <div v-for="fish in fishDisplay.fishies">
       <fish-details :fish="fish" :key="fish.fishId"/>
     </div>
 
-  </div>
+</div>
 </template>
 
 <script>
@@ -14,8 +20,14 @@
 import FishDetails from "@/components/FishDetails.vue";
 import Paginator from "@/components/Paginator.vue";
 
+
 export default {
   name: 'HomeView',
+  computed: {
+    emptyObject() {
+      return emptyObject
+    }
+  },
   components: {Paginator, FishDetails},
   props: {
     filterLocationId: Number,
