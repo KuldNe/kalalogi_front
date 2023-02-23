@@ -6,9 +6,6 @@
         <div
             class="text-white bg-dark shadow p-3 mb-5 " style="height: 100%">
           <img class="rounded-circle me-2" width="150" height="150" src="./assets/kalalogo.png"/>
-
-          <!--          d-flex flex-column flex-shrink-0 p-3-->
-          <!--          <strong><span class="fs-4 align-items-center">Kalalogi</span></strong>-->
           <hr>
           <div class="d-grid gap-2">
             <button type="button" class="btn btn-secondary btn-sm" v-on:click="resetFishFilters">
