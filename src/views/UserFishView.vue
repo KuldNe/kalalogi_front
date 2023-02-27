@@ -44,6 +44,10 @@ export default {
     pageNo: function () {
       this.getFishies()
     },
+    $route() {
+      this.checkIfFishview()
+      this.resetFishFilters()
+    }
 
 
   },

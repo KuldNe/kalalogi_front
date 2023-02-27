@@ -182,7 +182,7 @@ export default {
           }
       ).then(response => {
         // this.$parent.
-        // this.$router.push({name: 'userFishRoute', query: {catchId: this.fish.catchId }} )
+        this.$router.push({name: 'userFishRoute', query: {catchId: this.fish.catchId }} )
       }).catch(error => {
         console.log(error)
       })
